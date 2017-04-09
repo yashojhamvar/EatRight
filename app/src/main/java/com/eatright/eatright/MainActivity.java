@@ -190,16 +190,14 @@ public class MainActivity extends AppCompatActivity
             public void onResponse(String response) {
                 try {
                     String dishName = null;
-                    int dishVeg;
-                    int lactose;
-                    int[] calories = null;
+                    int dishVeg=1;
+                    int lactose=1;
+                    int[] calories = new int[4];
                     int totalCal;
-                    String[] ingredients = null;
-
+                    String[] ingredients = new String[20];
 
                     totalResult = response;
                     JSONArray resultJsonArray = (new JSONObject(response)).getJSONArray("menu_items");
-
                     for (int i = 0; i < resultJsonArray.length(); ++i) {
                         dishName = resultJsonArray.getJSONObject(i).getString("item_name");
                         dishVeg = resultJsonArray.getJSONObject(i).getInt("vegetarian_index");
@@ -238,7 +236,6 @@ public class MainActivity extends AppCompatActivity
     }
 
     private void getConditionData() {// Make a request
-
         //final EditText keywordEditText = (EditText) findViewById(R.id.keyWordEditText);
         final Context self = this;
         final StringRequest res = new StringRequest(Request.Method.GET, CONDITION_URL, new Response.Listener<String>() {

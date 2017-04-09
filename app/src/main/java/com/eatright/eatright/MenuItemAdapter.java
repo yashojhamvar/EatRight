@@ -63,8 +63,8 @@ public class MenuItemAdapter extends RecyclerView.Adapter<MenuItemAdapter.DataOb
 
     @Override
     public void onBindViewHolder(DataObjectHolder holder, int position) {
-        holder.title.setText(m_data.get(position).name());
-        // holder.cal.setText(m_data.get(position).totCal());
+        holder.title.setText(m_data.get(position).getDishName());
+        holder.cal.setText("Total Calories: "+String.valueOf(m_data.get(position).getTotCal()));
         //holder.img.setImageUrl(m_data.get(position).imageUrl(), imgLoad);
     }
 

@@ -27,24 +27,24 @@ public class RestMenuItem {
         this.dishName = dishName;
     }
 
-    public String name() {
+    public String getDishName() {
         return dishName;
-    }        //name of dish
+    }
 
-    public String[] ingredients() {
+    public String[] getIngredients() {
         return ingredients;
-    }   //array of all ingredients in the dish
+    }
 
-    public int[] calContent() {
+    public int[] getCalContent() {
         return calContent;
-    }      //array of calorie content divided over diff macros- carbs,protein,fats
+    }
 
-    public int totCal() {
+    public int getTotCal() {
         return totCal;
-    }             //integer representing total calories
+    }
 
-    public int dishType() {
+    public int getDishType() {
         return dishType;
-    }        //type of dish- vegan,vegetarian,non vegetarian
+    }
 
 }

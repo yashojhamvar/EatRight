@@ -44,11 +44,10 @@
       <file leaf-file-name="MainActivity.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/com/eatright/eatright/MainActivity.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="753">
-              <caret line="226" column="0" selection-start-line="226" selection-start-column="0" selection-end-line="226" selection-end-column="0" />
+            <state relative-caret-position="-880">
+              <caret line="79" column="0" selection-start-line="79" selection-start-column="0" selection-end-line="79" selection-end-column="0" />
               <folding>
-                <element signature="imports" expanded="true" />
-                <marker date="1491760678008" expanded="false" signature="7365:7474" ph="(response) → {" />
+                <marker date="1491761372272" expanded="false" signature="6179:6288" ph="(response) → {" />
               </folding>
             </state>
           </provider>
@@ -2743,8 +2742,7 @@
         <state relative-caret-position="0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
-            <element signature="imports" expanded="true" />
-            <marker date="1491760678008" expanded="false" signature="7365:7474" ph="(response) → {" />
+            <marker date="1491761372272" expanded="false" signature="6179:6288" ph="(response) → {" />
           </folding>
         </state>
       </provider>
@@ -2796,8 +2794,7 @@
         <state relative-caret-position="3190">
           <caret line="174" column="35" selection-start-line="174" selection-start-column="35" selection-end-line="174" selection-end-column="35" />
           <folding>
-            <element signature="imports" expanded="true" />
-            <marker date="1491760678008" expanded="false" signature="7365:7474" ph="(response) → {" />
+            <marker date="1491761372272" expanded="false" signature="6179:6288" ph="(response) → {" />
           </folding>
         </state>
       </provider>
@@ -2828,8 +2825,7 @@
         <state relative-caret-position="902">
           <caret line="67" column="0" selection-start-line="67" selection-start-column="0" selection-end-line="67" selection-end-column="0" />
           <folding>
-            <element signature="imports" expanded="true" />
-            <marker date="1491760678008" expanded="false" signature="7365:7474" ph="(response) → {" />
+            <marker date="1491761372272" expanded="false" signature="6179:6288" ph="(response) → {" />
           </folding>
         </state>
       </provider>
@@ -3168,11 +3164,10 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/eatright/eatright/MainActivity.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="753">
-          <caret line="226" column="0" selection-start-line="226" selection-start-column="0" selection-end-line="226" selection-end-column="0" />
+        <state relative-caret-position="-880">
+          <caret line="79" column="0" selection-start-line="79" selection-start-column="0" selection-end-line="79" selection-end-column="0" />
           <folding>
-            <element signature="imports" expanded="true" />
-            <marker date="1491760678008" expanded="false" signature="7365:7474" ph="(response) → {" />
+            <marker date="1491761372272" expanded="false" signature="6179:6288" ph="(response) → {" />
           </folding>
         </state>
       </provider>

@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "588193455346",
+    "firebase_url": "https://eatright-206e7.firebaseio.com",
+    "project_id": "eatright-206e7",
+    "storage_bucket": "eatright-206e7.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:588193455346:android:7075de2bf65a00f0",
+        "android_client_info": {
+          "package_name": "com.eatright.eatright"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "588193455346-foas0u8tmgcq77tmvtq9di4v7usbh3f8.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.eatright.eatright",
+            "certificate_hash": "95410ed45e5b8917b9cbd319815e7385f540346a"
+          }
+        },
+        {
+          "client_id": "588193455346-1uf35sun245sinsb1scpcdflpo6lo51c.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCB4ylfeMqmyzZHTMbwspHIlafLFmi1WHo"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "588193455346-1uf35sun245sinsb1scpcdflpo6lo51c.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

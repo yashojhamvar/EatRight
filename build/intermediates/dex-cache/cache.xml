@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<items version="2" >
+
+    <item
+        is-multidex="false"
+        jar="C:\Users\Yasho\.android\build-cache\76e5db9fce44d653191a8608d8440886eabc999b\output\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.2"
+        sha1="b3aee285fb75f9d81f1a77e1ad9bebc7b5125ab0">
+        <dex dex="C:\Users\Yasho\Documents\GitHub\EatRight\EatRight\app\build\intermediates\pre-dexed\debug\classes_8f088aa6b03cf51ceade614bc94246e8f17312b9.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\Yasho\.android\build-cache\ff8eff87267834700efe9b18eefc91c243dd2d54\output\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.2"
+        sha1="2cd4b982617e544728de0782d718a58ce1b06e3f">
+        <dex dex="C:\Users\Yasho\Documents\GitHub\EatRight\EatRight\app\build\intermediates\pre-dexed\debug\classes_5e6bca8b3bf695ece3b34d5078f85437a131622e.jar" />
+    </item>
+
+</items>

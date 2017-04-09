@@ -1,0 +1,105 @@
+package com.eatright.eatright;
+
+/**
+ * Created by Yasho on 4/8/2017.
+ */
+
+import android.content.Context;
+import android.graphics.Color;
+import android.support.v7.widget.RecyclerView;
+import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.TextView;
+
+import java.util.ArrayList;
+
+public class MenuItemAdapter extends RecyclerView.Adapter<MenuItemAdapter.DataObjectHolder> {
+    public ArrayList<RestMenuItem> m_data;
+    private static DishClickListener clickListener;
+    private static Context m_context;
+    public static int color;
+
+    public MenuItemAdapter(Context con) {
+        m_context = con;
+        m_data = new ArrayList<RestMenuItem>();
+    }
+
+    public MenuItemAdapter(Context con, ArrayList<RestMenuItem> data) {
+        m_context = con;
+        m_data = data;
+    }
+
+    public static class DataObjectHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+        TextView title;
+        TextView cal;
+
+        public DataObjectHolder(View itemView) {
+            super(itemView);
+            title = (TextView) itemView.findViewById(R.id.title);
+            cal = (TextView) itemView.findViewById(R.id.date);
+            itemView.setOnClickListener(this);
+        }
+
+        @Override
+        public void onClick(View v) {
+            clickListener.onItemClick(getAdapterPosition(), v);
+        }
+    }
+
+    // Sets the callback function to handle clicking on individual datum
+    public void setOnItemClickListener(DishClickListener clickListener) {
+        this.clickListener = clickListener;
+    }
+
+    @Override
+    public DataObjectHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.card, parent, false);
+        view.setBackgroundColor(color);
+        DataObjectHolder dataObjectHolder = new DataObjectHolder(view);
+        return dataObjectHolder;
+    }
+
+    @Override
+    public void onBindViewHolder(DataObjectHolder holder, int position) {
+        holder.title.setText(m_data.get(position).name());
+        // holder.cal.setText(m_data.get(position).totCal());
+        //holder.img.setImageUrl(m_data.get(position).imageUrl(), imgLoad);
+    }
+
+    public void addItem(RestMenuItem data, int index, int colour) {
+        m_data.add(index, data);
+        notifyItemInserted(index);
+        color = colour;
+    }
+
+    public void deleteItem(int index) {
+        m_data.remove(index);
+        notifyItemRemoved(index);
+    }
+
+    public void clear() {
+        m_data.clear();
+        notifyDataSetChanged();
+    }
+
+    @Override
+    public int getItemCount() {
+        return m_data.size();
+    }
+
+    // Get a specific datum
+    public RestMenuItem getItem(int position) {
+        if (position > -1 && position < m_data.size())
+            return m_data.get(position);
+        else
+            return null;
+    }
+
+    public interface DishClickListener {
+        public void onItemClick(int position, View v);
+    }
+
+
+}

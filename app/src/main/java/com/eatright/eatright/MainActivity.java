@@ -46,6 +46,8 @@ import org.json.JSONObject;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Iterator;
 
 
 public class MainActivity extends AppCompatActivity
@@ -75,6 +77,7 @@ public class MainActivity extends AppCompatActivity
 
     MyDBHandler dbHandler;
     public ArrayList<String> dbRecords;
+    HashSet<String> hset = new HashSet<String>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -105,6 +108,7 @@ public class MainActivity extends AppCompatActivity
         toggle.syncState();
 
         retrieveDataFromDB();
+        retrieveConditions();
 
         restaurantNameRecd = EatRight.RESTAURANTNAME;
         if (restaurantNameRecd == null || restaurantNameRecd.length() == 0) {
@@ -166,7 +170,7 @@ public class MainActivity extends AppCompatActivity
         final Button conditionButton = (Button) findViewById(R.id.buttonCondition);
         conditionButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                getConditionData();
+                retrieveConditions();
             }
         });
 
@@ -232,36 +236,6 @@ public class MainActivity extends AppCompatActivity
         requestQ.add(res);
     }
 
-    private void getConditionData() {// Make a request
-        //final EditText keywordEditText = (EditText) findViewById(R.id.keyWordEditText);
-        final Context self = this;
-        final StringRequest res = new StringRequest(Request.Method.GET, CONDITION_URL, new Response.Listener<String>() {
-            private ImageLoader imgLoad = VolleySingleton.getInstance(self).getImageLoader();
-
-            // On response
-            @Override
-            public void onResponse(String response) {
-                try {
-                    totalResult = response;
-                    // Get the response and convert it to JSON
-                    Toast.makeText(self, totalResult, Toast.LENGTH_LONG).show();
-                } catch (Exception e) {
-                    // Print to console on error
-                    e.printStackTrace();
-                }
-            }
-        }, new Response.ErrorListener() {
-            // Print to console on Error
-            @Override
-            public void onErrorResponse(VolleyError err) {
-                err.printStackTrace();
-            }
-        }
-        );
-
-// Start the request
-        requestQ.add(res);
-    }
 
     private void checkNeededPermissions() {
 
@@ -386,9 +360,56 @@ public class MainActivity extends AppCompatActivity
         dbRecords = dbHandler.retrievePreferences();
         if (dbRecords != null) {
             Toast.makeText(this, "Retrieved data= " + dbRecords, Toast.LENGTH_LONG).show();
+            makeHashSet();
         } else {
             Toast.makeText(this, "Retrieved data = NULL", Toast.LENGTH_LONG).show();
         }
+        dbHandler.close();
 
     }
+
+    private void retrieveConditions() {
+        dbHandler = new MyDBHandler(this, null, null, 1);
+        dbRecords = dbHandler.retrievePreferences();
+        final String[] conditions = dbRecords.get(4).split(",");
+
+        final Context self = this;
+        final StringRequest res = new StringRequest(Request.Method.GET, CONDITION_URL, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                try {
+                    totalResult = response;
+                    JSONArray resultJsonArray = (new JSONObject(response)).getJSONArray("conditions");
+                    for (int i = 0; i < conditions.length; i++) {
+
+
+                    }
+                    // Toast.makeText(self, totalResult, Toast.LENGTH_LONG).show();
+                } catch (Exception e) {
+                    // Print to console on error
+                    e.printStackTrace();
+                }
+            }
+        }, new Response.ErrorListener() {
+            // Print to console on Error
+            @Override
+            public void onErrorResponse(VolleyError err) {
+                err.printStackTrace();
+            }
+        }
+        );
+
+// Start the request
+        requestQ.add(res);
+    }
+
+    public void makeHashSet() {
+        Iterator<String> it = dbRecords.iterator();
+        while (it.hasNext()) {
+            String[] separated = it.next().split(",");
+            for (String ingr : separated)
+                hset.add(ingr);
+        }
+    }
+
 }

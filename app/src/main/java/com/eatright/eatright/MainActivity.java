@@ -73,6 +73,9 @@ public class MainActivity extends AppCompatActivity
     final Context self = this;
     String restaurantNameRecd;
 
+    MyDBHandler dbHandler;
+    public ArrayList<String> dbRecords;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -100,6 +103,8 @@ public class MainActivity extends AppCompatActivity
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.setDrawerListener(toggle);
         toggle.syncState();
+
+        retrieveDataFromDB();
 
         restaurantNameRecd = EatRight.RESTAURANTNAME;
         if (restaurantNameRecd == null || restaurantNameRecd.length() == 0) {
@@ -374,5 +379,16 @@ public class MainActivity extends AppCompatActivity
         super.onResume();
         mAuth.addAuthStateListener(mAuthListener);
         SystemRequirementsChecker.checkWithDefaultDialogs(this);
+    }
+
+    public void retrieveDataFromDB() {
+        dbHandler = new MyDBHandler(this, null, null, 1);
+        dbRecords = dbHandler.retrievePreferences();
+        if (dbRecords != null) {
+            Toast.makeText(this, "Retrieved data= " + dbRecords, Toast.LENGTH_LONG).show();
+        } else {
+            Toast.makeText(this, "Retrieved data = NULL", Toast.LENGTH_LONG).show();
+        }
+
     }
 }

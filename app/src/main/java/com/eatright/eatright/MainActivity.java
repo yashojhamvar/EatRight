@@ -62,7 +62,7 @@ public class MainActivity extends AppCompatActivity
 
     public static String USERNAME;
     private final String RESTAURANT_URL = "http://192.168.0.24/dishes/";
-    private final String CONDITION_URL = "http://192.168.0.6/promotions";
+    private final String CONDITION_URL = "http://192.168.0.24/promotions";
     public String totalResult;
     private RequestQueue requestQ;
 
@@ -108,7 +108,11 @@ public class MainActivity extends AppCompatActivity
         toggle.syncState();
 
         retrieveDataFromDB();
+        Toast.makeText(this, "Retr from DB Done", Toast.LENGTH_SHORT).show();
         retrieveConditions();
+        Toast.makeText(this, "Retr from Conditions Done", Toast.LENGTH_SHORT).show();
+        showHSet();
+        Toast.makeText(this, String.valueOf(hset.size()), Toast.LENGTH_SHORT).show();
 
         restaurantNameRecd = EatRight.RESTAURANTNAME;
         if (restaurantNameRecd == null || restaurantNameRecd.length() == 0) {
@@ -187,7 +191,7 @@ public class MainActivity extends AppCompatActivity
                     String dishName = null;
                     int dishVeg = 1;
                     int lactose = 1;
-
+                    int reco = 1;
                     int totalCal;
 
                     //String[] ingredients = new String[20];
@@ -195,10 +199,26 @@ public class MainActivity extends AppCompatActivity
                     totalResult = response;
                     JSONArray resultJsonArray = (new JSONObject(response)).getJSONArray("menu_items");
                     for (int i = 0; i < resultJsonArray.length(); ++i) {
-                        ArrayList<String> reasons = new ArrayList<String>();
+                        ArrayList<String> reason = new ArrayList<String>();
+
                         dishName = resultJsonArray.getJSONObject(i).getString("item_name");
+
+
                         dishVeg = resultJsonArray.getJSONObject(i).getInt("vegetarian_index");
+                        if (dishVeg == 2 && (hset.contains("Vegetarian Meals") || hset.contains("Vegan Meals"))) {
+                            reco = 0;
+                            reason.add("The Dish is Non-Vegetarian");
+                        } else if ((dishVeg == 1) && hset.contains("Vegan Meals")) {
+                            reco = 0;
+                            reason.add("The Dish Contains Dairy Products");
+                        }
+
+
                         lactose = resultJsonArray.getJSONObject(i).getInt("lactose_content");
+                        if (lactose == 1 && hset.contains("Lactose Intolerance")) {
+                            reco = 0;
+                            reason.add("The Dish has Lactose Contents");
+                        }
 
                         //Take calorie content in an array
                         JSONArray calorieArray = resultJsonArray.getJSONObject(i).getJSONArray("Cal_content");
@@ -212,14 +232,22 @@ public class MainActivity extends AppCompatActivity
                         JSONArray ingredientArray = resultJsonArray.getJSONObject(i).getJSONArray("Ingredients");
                         ArrayList<String> ingredients = new ArrayList<String>();
                         for (int j = 0; j < ingredientArray.length(); ++j) {
-                            ingredients.add(ingredientArray.getJSONObject(j).getString("ingredient_name"));
+                            String temp = ingredientArray.getJSONObject(j).getString("ingredient_name");
+                            ingredients.add(temp);
+                            if (hset.contains(temp)) {
+                                reco = 0;
+                                reason.add("This Dish contains " + temp);
+                            }
                         }
 
                         //Constructor to create an object of RestMenuItem
-                        RestMenuItem datum = new RestMenuItem(dishName, dishVeg, lactose, calories, totalCal, ingredients);
+                        RestMenuItem datum = new RestMenuItem(dishName, dishVeg, lactose, calories, totalCal, ingredients, reco, reason);
 
-                        //Add to Recycler View
-                        ((MenuItemAdapter) madapter).addItem(datum, madapter.getItemCount(), Color.GREEN);
+                        if (reco == 1)
+                            //Add to Recycler View
+                            ((MenuItemAdapter) madapter).addItem(datum, madapter.getItemCount(), Color.GREEN);
+                        else
+                            ((MenuItemAdapter) madapter2).addItem(datum, madapter2.getItemCount(), Color.RED);
 
                     }
                 } catch (Exception e) {
@@ -368,6 +396,15 @@ public class MainActivity extends AppCompatActivity
 
     }
 
+    public void makeHashSet() {
+        Iterator<String> it = dbRecords.iterator();
+        while (it.hasNext()) {
+            String[] separated = it.next().split(",");
+            for (String ingr : separated)
+                hset.add(ingr);
+        }
+    }
+
     private void retrieveConditions() {
         dbHandler = new MyDBHandler(this, null, null, 1);
         dbRecords = dbHandler.retrievePreferences();
@@ -380,11 +417,17 @@ public class MainActivity extends AppCompatActivity
                 try {
                     totalResult = response;
                     JSONArray resultJsonArray = (new JSONObject(response)).getJSONArray("conditions");
-                    for (int i = 0; i < conditions.length; i++) {
 
-
+                    for (int j = 0; j < conditions.length; j++) {
+                        for (int i = 0; i < resultJsonArray.length(); ++i) {
+                            if (resultJsonArray.getJSONObject(i).getString("condition_name").equals(conditions[j])) {
+                                JSONArray ingredientsToAvoid = resultJsonArray.getJSONObject(i).getJSONArray("ingredients_avoid");
+                                for (int k = 0; k < ingredientsToAvoid.length(); ++k) {
+                                    hset.add(ingredientsToAvoid.getJSONObject(k).getString("ingredient_name"));
+                                }
+                            }
+                        }
                     }
-                    // Toast.makeText(self, totalResult, Toast.LENGTH_LONG).show();
                 } catch (Exception e) {
                     // Print to console on error
                     e.printStackTrace();
@@ -398,17 +441,15 @@ public class MainActivity extends AppCompatActivity
             }
         }
         );
-
 // Start the request
         requestQ.add(res);
     }
 
-    public void makeHashSet() {
-        Iterator<String> it = dbRecords.iterator();
+
+    public void showHSet() {
+        Iterator<String> it = hset.iterator();
         while (it.hasNext()) {
-            String[] separated = it.next().split(",");
-            for (String ingr : separated)
-                hset.add(ingr);
+            Toast.makeText(this, it.next().toString(), Toast.LENGTH_SHORT).show();
         }
     }
 

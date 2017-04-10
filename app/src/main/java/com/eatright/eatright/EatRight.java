@@ -17,6 +17,7 @@ import java.util.UUID;
 
 public class EatRight extends Application {
 
+    public static String RESTAURANTNAME;
     private BeaconManager beaconManager;
 
     @Override
@@ -29,9 +30,12 @@ public class EatRight extends Application {
 
             @Override
             public void onEnteredRegion(Region region, List<Beacon> list) {
-                //String major = "";
-                region.getMajor();
-                callApp("XYZ");
+                /*if (region.getIdentifier().equals("Subway"))
+                    callApp("Subway");
+                else if (region.getIdentifier().equals("Subway2"))
+                    callApp("Subway2");*/
+                RESTAURANTNAME = region.getIdentifier();
+                callApp();
             }
 
             @Override
@@ -42,18 +46,19 @@ public class EatRight extends Application {
         beaconManager.connect(new BeaconManager.ServiceReadyCallback() {
             @Override
             public void onServiceReady() {
-                beaconManager.startMonitoring(new Region("monitored region", null, null, null));
+                beaconManager.setBackgroundScanPeriod(20000,3000);
+                beaconManager.startMonitoring(new Region("Subway", null, 0001, null));
+                beaconManager.startMonitoring(new Region("Subway2", null, 0002, null));
             }
         });
     }
 
-    private void callApp(String major) {
-        showNotification("Open EatRight!","You are at "+major);
-        Toast.makeText(this,"HI",Toast.LENGTH_SHORT).show();
-        Intent intent = new Intent(this, MainActivity.class);
+    private void callApp() {
+        showNotification("Open EatRight!", "You are at " + RESTAURANTNAME);
+        /*Intent intent = new Intent(this, MainActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        this.startActivity(intent);
-
+        intent.putExtra("RestaurantName", RESTAURANTNAME);
+        this.startActivity(intent);*/
     }
 
 

@@ -17,7 +17,7 @@ import java.util.ArrayList;
 
 public class MenuItemAdapter extends RecyclerView.Adapter<MenuItemAdapter.DataObjectHolder> {
     public ArrayList<RestMenuItem> m_data;
-    private static DishClickListener clickListener;
+    private static RestMenuItemClickListener clickListener;
     private static Context m_context;
     public static int color;
 
@@ -49,7 +49,7 @@ public class MenuItemAdapter extends RecyclerView.Adapter<MenuItemAdapter.DataOb
     }
 
     // Sets the callback function to handle clicking on individual datum
-    public void setOnItemClickListener(DishClickListener clickListener) {
+    public void setOnItemClickListener(RestMenuItemClickListener clickListener) {
         this.clickListener = clickListener;
     }
 
@@ -97,7 +97,7 @@ public class MenuItemAdapter extends RecyclerView.Adapter<MenuItemAdapter.DataOb
             return null;
     }
 
-    public interface DishClickListener {
+    public interface RestMenuItemClickListener {
         public void onItemClick(int position, View v);
     }
 

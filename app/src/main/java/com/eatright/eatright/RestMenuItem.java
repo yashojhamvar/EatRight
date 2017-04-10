@@ -1,5 +1,7 @@
 package com.eatright.eatright;
 
+import java.util.ArrayList;
+
 /**
  * Created by Yasho on 4/8/2017.
  */
@@ -11,10 +13,10 @@ public class RestMenuItem {
     private int lactose;         //Is the dish Lactose Intolerant 0/1
     private int[] calContent;       //array of calorie content divided over diff macros- carbs,protein,fats
     private int totCal;             //integer representing total calories
-    private String[] ingredients;   //array of all ingredients in the dish
+    private ArrayList<String> ingredients;   //array of all ingredients in the dish
 
 
-    public RestMenuItem(String dishName, int dishType, int lactoseIndex, int[] calContent, int totCal, String[] ingredients) {
+    public RestMenuItem(String dishName, int dishType, int lactoseIndex, int[] calContent, int totCal, ArrayList<String> ingredients) {
         this.dishName = dishName;
         this.dishType = dishType;
         this.lactose = lactoseIndex;
@@ -31,7 +33,7 @@ public class RestMenuItem {
         return dishName;
     }
 
-    public String[] getIngredients() {
+    public ArrayList<String> getIngredients() {
         return ingredients;
     }
 

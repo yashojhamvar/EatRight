@@ -21,6 +21,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.ImageLoader;
@@ -37,8 +38,11 @@ import com.android.volley.RequestQueue;
 import com.karumi.dexter.Dexter;
 import com.karumi.dexter.listener.single.PermissionListener;
 import com.karumi.dexter.listener.single.SnackbarOnDeniedPermissionListener;
+
 import org.json.JSONArray;
 import org.json.JSONObject;
+
+import java.util.ArrayList;
 import java.util.Arrays;
 
 
@@ -53,7 +57,7 @@ public class MainActivity extends AppCompatActivity
     private RecyclerView.LayoutManager mlayout2;
 
     public static String USERNAME = "";
-    private final String RESTAURANT_URL = "http://192.168.0.6/dishes/Subway";
+    private final String RESTAURANT_URL = "http://192.168.0.24/dishes/";
     private final String CONDITION_URL = "http://192.168.0.6/promotions";
     public String totalResult;
     private RequestQueue requestQ;
@@ -64,40 +68,45 @@ public class MainActivity extends AppCompatActivity
     private ChildEventListener mChildEventListener;
     private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener mAuthListener;
-
+    final Context self = this;
+    String restaurantNameRecd;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
         mrecView = (RecyclerView) findViewById(R.id.recycler_view);
         mlayout = new LinearLayoutManager(this);
         madapter = new MenuItemAdapter(this);
         mrecView.setHasFixedSize(true);
         mrecView.setLayoutManager(mlayout);
         mrecView.setAdapter(madapter);
-
         mrecView2 = (RecyclerView) findViewById(R.id.recycler_view2);
         mlayout2 = new LinearLayoutManager(this);
         madapter2 = new MenuItemAdapter(this);
         mrecView2.setHasFixedSize(true);
         mrecView2.setLayoutManager(mlayout2);
         mrecView2.setAdapter(madapter2);
-
         requestQ = VolleySingleton.getInstance(this.getApplicationContext()).getRequestQueue();
         SystemRequirementsChecker.checkWithDefaultDialogs(this);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         //Yasho - for Auth with FireBase
         mAuth = FirebaseAuth.getInstance();
-
-
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.setDrawerListener(toggle);
         toggle.syncState();
+
+        restaurantNameRecd = EatRight.RESTAURANTNAME;
+        if (restaurantNameRecd == null || restaurantNameRecd.length() == 0) {
+            Toast.makeText(this, "You are NOT at any Restaurant", Toast.LENGTH_SHORT).show();
+        } else {
+            ((MenuItemAdapter) madapter).clear();
+            Toast.makeText(this, "You are at " + restaurantNameRecd, Toast.LENGTH_SHORT).show();
+            getRestaurantData();
+        }
 
 
         mAuthListener = new FirebaseAuth.AuthStateListener() {
@@ -124,6 +133,23 @@ public class MainActivity extends AppCompatActivity
             }
         };
 
+
+        ((MenuItemAdapter) madapter).setOnItemClickListener(new MenuItemAdapter.RestMenuItemClickListener() {
+            @Override
+            public void onItemClick(int position, View v) {
+                int i = 0;
+                ArrayList<String> msg = ((MenuItemAdapter) madapter).getItem(position).getIngredients();
+                StringBuilder sb = new StringBuilder();
+                for (i = 0; i < msg.size(); i++) {
+                    sb.append(msg.get(i) + '\n');
+                }
+                //String msg2 = " Item with ID: " + ((MenuItemAdapter) madapter).getItem(position).getIngredients();
+                //String msg = " Item with ID: " + position;
+                Toast toast = Toast.makeText(self, sb.toString(), Toast.LENGTH_SHORT);
+                toast.show();
+            }
+        });
+
         final Button restaurantButton = (Button) findViewById(R.id.buttonRestaurant);
         restaurantButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -138,21 +164,24 @@ public class MainActivity extends AppCompatActivity
                 getConditionData();
             }
         });
+
+
     }
 
     private void getRestaurantData() {
         final Context self = this;
         // Toast.makeText(this, "In Get Restaurant", Toast.LENGTH_SHORT).show();
-        final StringRequest res = new StringRequest(Request.Method.GET, RESTAURANT_URL, new Response.Listener<String>() {
+        final StringRequest res = new StringRequest(Request.Method.GET, RESTAURANT_URL + restaurantNameRecd, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 try {
                     String dishName = null;
-                    int dishVeg=1;
-                    int lactose=1;
-                    int[] calories = new int[4];
+                    int dishVeg = 1;
+                    int lactose = 1;
+
                     int totalCal;
-                    String[] ingredients = new String[20];
+
+                    //String[] ingredients = new String[20];
 
                     totalResult = response;
                     JSONArray resultJsonArray = (new JSONObject(response)).getJSONArray("menu_items");
@@ -163,6 +192,7 @@ public class MainActivity extends AppCompatActivity
 
                         //Take calorie content in an array
                         JSONArray calorieArray = resultJsonArray.getJSONObject(i).getJSONArray("Cal_content");
+                        int[] calories = new int[4];
                         calories[0] = calorieArray.getJSONObject(0).getInt("Carbohydrates");
                         calories[1] = calorieArray.getJSONObject(1).getInt("Fat");
                         calories[2] = calorieArray.getJSONObject(2).getInt("Protein");
@@ -170,14 +200,17 @@ public class MainActivity extends AppCompatActivity
 
                         //Take ingredients in an array
                         JSONArray ingredientArray = resultJsonArray.getJSONObject(i).getJSONArray("Ingredients");
+                        ArrayList<String> ingredients = new ArrayList<String>();
                         for (int j = 0; j < ingredientArray.length(); ++j) {
-                            ingredients[j] = ingredientArray.getJSONObject(j).getString("ingredient_name");
+                            ingredients.add(ingredientArray.getJSONObject(j).getString("ingredient_name"));
                         }
 
                         //Constructor to create an object of RestMenuItem
                         RestMenuItem datum = new RestMenuItem(dishName, dishVeg, lactose, calories, totalCal, ingredients);
+
                         //Add to Recycler View
                         ((MenuItemAdapter) madapter).addItem(datum, madapter.getItemCount(), Color.GREEN);
+
                     }
                 } catch (Exception e) {
                     e.printStackTrace();

@@ -55,10 +55,6 @@ public class EatRight extends Application {
 
     private void callApp() {
         showNotification("Open EatRight!", "You are at " + RESTAURANTNAME);
-        /*Intent intent = new Intent(this, MainActivity.class);
-        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        intent.putExtra("RestaurantName", RESTAURANTNAME);
-        this.startActivity(intent);*/
     }
 
 

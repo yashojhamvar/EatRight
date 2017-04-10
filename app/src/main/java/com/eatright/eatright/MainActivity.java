@@ -1,6 +1,7 @@
 package com.eatright.eatright;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
@@ -42,6 +43,7 @@ import com.karumi.dexter.listener.single.SnackbarOnDeniedPermissionListener;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -56,7 +58,7 @@ public class MainActivity extends AppCompatActivity
     private RecyclerView.Adapter madapter2;
     private RecyclerView.LayoutManager mlayout2;
 
-    public static String USERNAME = "";
+    public static String USERNAME;
     private final String RESTAURANT_URL = "http://192.168.0.24/dishes/";
     private final String CONDITION_URL = "http://192.168.0.6/promotions";
     public String totalResult;
@@ -143,8 +145,6 @@ public class MainActivity extends AppCompatActivity
                 for (i = 0; i < msg.size(); i++) {
                     sb.append(msg.get(i) + '\n');
                 }
-                //String msg2 = " Item with ID: " + ((MenuItemAdapter) madapter).getItem(position).getIngredients();
-                //String msg = " Item with ID: " + position;
                 Toast toast = Toast.makeText(self, sb.toString(), Toast.LENGTH_SHORT);
                 toast.show();
             }
@@ -186,6 +186,7 @@ public class MainActivity extends AppCompatActivity
                     totalResult = response;
                     JSONArray resultJsonArray = (new JSONObject(response)).getJSONArray("menu_items");
                     for (int i = 0; i < resultJsonArray.length(); ++i) {
+                        ArrayList<String> reasons = new ArrayList<String>();
                         dishName = resultJsonArray.getJSONObject(i).getString("item_name");
                         dishVeg = resultJsonArray.getJSONObject(i).getInt("vegetarian_index");
                         lactose = resultJsonArray.getJSONObject(i).getInt("lactose_content");
@@ -323,10 +324,9 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_preferences) {
-            Toast.makeText(this, "Preferences?", Toast.LENGTH_SHORT).show();
-           /* Intent i = new Intent(this, FoodPreferences.class);
-            i.putExtra("username", USERNAME);
-            startActivity(i);*/
+            Intent prefPage = new Intent(this, FoodPreferences.class);
+            prefPage.putExtra("username", USERNAME);
+            startActivity(prefPage);
         } else if (id == R.id.nav_sign_out) {
             //Toast.makeText(this,"Sign Out?",Toast.LENGTH_SHORT).show();
             AuthUI.getInstance().signOut(this);

@@ -14,15 +14,18 @@ public class RestMenuItem {
     private int[] calContent;       //array of calorie content divided over diff macros- carbs,protein,fats
     private int totCal;             //integer representing total calories
     private ArrayList<String> ingredients;   //array of all ingredients in the dish
+    private int recommended;
+    private ArrayList<String> reasons;
 
-
-    public RestMenuItem(String dishName, int dishType, int lactoseIndex, int[] calContent, int totCal, ArrayList<String> ingredients) {
+    public RestMenuItem(String dishName, int dishType, int lactoseIndex, int[] calContent, int totCal, ArrayList<String> ingredients, int reco, ArrayList<String> reason) {
         this.dishName = dishName;
         this.dishType = dishType;
         this.lactose = lactoseIndex;
         this.calContent = calContent;
         this.totCal = totCal;
         this.ingredients = ingredients;
+        this.recommended = reco;
+        this.reasons = reason;
     }
 
     public RestMenuItem(String dishName) {
@@ -47,6 +50,14 @@ public class RestMenuItem {
 
     public int getDishType() {
         return dishType;
+    }
+
+    public int getRecommended() {
+        return recommended;
+    }
+
+    public ArrayList<String> getReasons() {
+        return reasons;
     }
 
 }

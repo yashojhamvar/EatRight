@@ -45,7 +45,7 @@ public class MyDBHandler extends SQLiteOpenHelper {
     public int addPreferences(UserPreferences userPreferences) {
         ContentValues values = new ContentValues();
         values.put(COLUMN_USERNAME, userPreferences.get_username());
-        values.put(COLUMN_MEALTYPE, userPreferences.get_meal_type());
+        values.put(COLUMN_MEALTYPE, userPreferences.get_mealtype());
         values.put(COLUMN_AVOIDMEAT, userPreferences.get_avoidMeat());
         values.put(COLUMN_AVOIDVEG, userPreferences.get_avoidVeg());
         values.put(COLUMN_CONDITIONS, userPreferences.get_conditions());

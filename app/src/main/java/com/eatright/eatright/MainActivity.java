@@ -107,12 +107,12 @@ public class MainActivity extends AppCompatActivity
         drawer.setDrawerListener(toggle);
         toggle.syncState();
 
-        retrieveDataFromDB();
+        /*retrieveDataFromDB();
         Toast.makeText(this, "Retr from DB Done", Toast.LENGTH_SHORT).show();
         retrieveConditions();
         Toast.makeText(this, "Retr from Conditions Done", Toast.LENGTH_SHORT).show();
         showHSet();
-        Toast.makeText(this, String.valueOf(hset.size()), Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, String.valueOf(hset.size()), Toast.LENGTH_SHORT).show();*/
 
         restaurantNameRecd = EatRight.RESTAURANTNAME;
         if (restaurantNameRecd == null || restaurantNameRecd.length() == 0) {

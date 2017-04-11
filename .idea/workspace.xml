@@ -46,7 +46,7 @@
       <file leaf-file-name="MainActivity.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/com/eatright/eatright/MainActivity.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-5993">
+            <state relative-caret-position="387">
               <caret line="68" column="26" selection-start-line="68" selection-start-column="26" selection-end-line="68" selection-end-column="26" />
               <folding>
                 <element signature="imports" expanded="true" />
@@ -58,8 +58,8 @@
       <file leaf-file-name="FoodPreferences.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/com/eatright/eatright/FoodPreferences.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="660">
-              <caret line="188" column="35" selection-start-line="188" selection-start-column="35" selection-end-line="188" selection-end-column="35" />
+            <state relative-caret-position="577">
+              <caret line="314" column="0" selection-start-line="314" selection-start-column="0" selection-end-line="314" selection-end-column="0" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="e#774#782#0" expanded="true" />
@@ -68,9 +68,22 @@
                 <element signature="e#966#974#0" expanded="true" />
                 <element signature="e#1026#1034#0" expanded="true" />
                 <element signature="e#1088#1096#0" expanded="true" />
-                <element signature="e#4409#4547#0" expanded="true" />
-                <element signature="e#4546#4547#0" expanded="true" />
+                <element signature="e#2306#2442#0" expanded="true" />
+                <element signature="e#2441#2442#0" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="content_preferences.xml" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/content_preferences.xml">
+          <provider editor-type-id="android-designer2">
+            <state />
+          </provider>
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="256">
+              <caret line="229" column="28" selection-start-line="229" selection-start-column="28" selection-end-line="229" selection-end-column="28" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -2401,7 +2414,7 @@
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="settings.editor.selected.configurable" value="vcs.Git" />
     <property name="settings.editor.splitter.proportion" value="0.2" />
-    <property name="SearchEverywhereHistoryKey" value="card_view&#9;PSI&#9;JAVA://com.eatright.eatright.R.id#card_view" />
+    <property name="SearchEverywhereHistoryKey" value="r.java&#9;FILE&#9;file://C:/Users/Yasho/Documents/GitHub/EatRight/app/build/generated/source/r/debug/com/eatright/eatright/R.java&#10;card_view&#9;PSI&#9;JAVA://com.eatright.eatright.R.id#card_view" />
   </component>
   <component name="RecentsManager">
     <key name="android.template.packageName">
@@ -2993,14 +3006,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/build/generated/source/r/debug/com/eatright/eatright/R.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="5769">
-          <caret line="3975" column="32" selection-start-line="3975" selection-start-column="32" selection-end-line="3975" selection-end-column="32" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="jar://$USER_HOME$/.android/build-cache/76e5db9fce44d653191a8608d8440886eabc999b/output/jars/classes.jar!/com/estimote/sdk/Region.class">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="276">
@@ -3165,16 +3170,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/eatright/eatright/MainActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-5993">
-          <caret line="68" column="26" selection-start-line="68" selection-start-column="26" selection-end-line="68" selection-end-column="26" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/eatright/eatright/RestMenuItem.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="220">
@@ -3182,21 +3177,6 @@
           <folding>
             <element signature="e#1673#1674#0" expanded="true" />
             <element signature="e#1703#1704#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/content_preferences.xml">
-      <provider editor-type-id="android-designer2">
-        <state />
-      </provider>
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="5344">
-          <caret line="316" column="48" selection-start-line="316" selection-start-column="48" selection-end-line="316" selection-end-column="48" />
-          <folding>
-            <element signature="e#11840#11880#0" expanded="true" />
-            <element signature="e#15764#15804#0" expanded="true" />
-            <element signature="e#15846#15886#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -3245,10 +3225,39 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/content_preferences.xml">
+      <provider editor-type-id="android-designer2">
+        <state />
+      </provider>
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="256">
+          <caret line="229" column="28" selection-start-line="229" selection-start-column="28" selection-end-line="229" selection-end-column="28" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/build/generated/source/r/debug/com/eatright/eatright/R.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="86878">
+          <caret line="3954" column="73" selection-start-line="3954" selection-start-column="73" selection-end-line="3954" selection-end-column="73" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/eatright/eatright/MainActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="387">
+          <caret line="68" column="26" selection-start-line="68" selection-start-column="26" selection-end-line="68" selection-end-column="26" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/eatright/eatright/FoodPreferences.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="660">
-          <caret line="188" column="35" selection-start-line="188" selection-start-column="35" selection-end-line="188" selection-end-column="35" />
+        <state relative-caret-position="577">
+          <caret line="314" column="0" selection-start-line="314" selection-start-column="0" selection-end-line="314" selection-end-column="0" />
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="e#774#782#0" expanded="true" />
@@ -3257,8 +3266,8 @@
             <element signature="e#966#974#0" expanded="true" />
             <element signature="e#1026#1034#0" expanded="true" />
             <element signature="e#1088#1096#0" expanded="true" />
-            <element signature="e#4409#4547#0" expanded="true" />
-            <element signature="e#4546#4547#0" expanded="true" />
+            <element signature="e#2306#2442#0" expanded="true" />
+            <element signature="e#2441#2442#0" expanded="true" />
           </folding>
         </state>
       </provider>

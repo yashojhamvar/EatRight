@@ -31,6 +31,10 @@
             android:name=".FoodPreferences"
             android:label="Preferences"
             android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".ResultDisplayActivity"
+            android:label="ResultDisplayActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
 
     </application>
 

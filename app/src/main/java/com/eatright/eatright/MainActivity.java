@@ -78,10 +78,10 @@ public class MainActivity extends AppCompatActivity
     MyDBHandler dbHandler;
     public ArrayList<String> dbRecords;
     HashSet<String> hset = new HashSet<String>();
-    public int ALLOWED_SUGAR=999;
-    public int ALLOWED_CARBS=999;
-    public int ALLOWED_FATS=999;
-    public int ALLOWED_PROTEINS=999;
+    public int ALLOWED_SUGAR = 999;
+    public int ALLOWED_CARBS = 999;
+    public int ALLOWED_FATS = 999;
+    public int ALLOWED_PROTEINS = 999;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -95,7 +95,7 @@ public class MainActivity extends AppCompatActivity
         mrecView.setAdapter(madapter);
         mrecView2 = (RecyclerView) findViewById(R.id.recycler_view2);
         mlayout2 = new LinearLayoutManager(this);
-        madapter2 = new MenuItemAdapter(this);
+        madapter2 = new MenuItemAdapter2(this);
         mrecView2.setHasFixedSize(true);
         mrecView2.setLayoutManager(mlayout2);
         mrecView2.setAdapter(madapter2);
@@ -156,22 +156,74 @@ public class MainActivity extends AppCompatActivity
                 for (i = 0; i < msg.size(); i++) {
                     sb.append(msg.get(i) + '\n');
                 }
-                Toast toast = Toast.makeText(self, sb.toString(), Toast.LENGTH_SHORT);
-                toast.show();
+                Toast.makeText(self, sb.toString(), Toast.LENGTH_SHORT).show();
+
+                //To gagan
+                String dishName = ((MenuItemAdapter) madapter).getItem(position).getDishName();
+                String dishDesc = ((MenuItemAdapter) madapter).getItem(position).getDishDesc();
+                String imageURL=((MenuItemAdapter) madapter).getItem(position).getImageUrl();
+                int dishType=((MenuItemAdapter) madapter).getItem(position).getDishType();
+                int lactose=((MenuItemAdapter) madapter).getItem(position).getLactose();
+                int gluten=((MenuItemAdapter) madapter).getItem(position).getGluten();
+                int[] calContent=((MenuItemAdapter) madapter).getItem(position).getCalContent();
+                int totCal=((MenuItemAdapter) madapter).getItem(position).getTotCal();
+                ArrayList<String> ingredients=((MenuItemAdapter) madapter).getItem(position).getIngredients();
+                int recommended=((MenuItemAdapter) madapter).getItem(position).getRecommended();
+                ArrayList<String> reasons=((MenuItemAdapter) madapter).getItem(position).getReasons();
+
+                Intent in = new Intent(MainActivity.this, ResultDisplayActivity.class);
+                in.putExtra("dishName", dishName);
+                in.putExtra("dishDesc", dishDesc);
+                in.putExtra("imageURL", imageURL);
+                in.putExtra("dishType", dishType);
+                in.putExtra("lactose", lactose);
+                in.putExtra("gluten", gluten);
+                in.putExtra("calContent", calContent);
+                in.putExtra("totCal", totCal);
+                in.putExtra("ingredients", ingredients);
+                in.putExtra("recommended", recommended);
+                in.putExtra("reasons", reasons);
+                startActivity(in);
             }
         });
 
-        ((MenuItemAdapter) madapter2).setOnItemClickListener(new MenuItemAdapter.RestMenuItemClickListener() {
+        ((MenuItemAdapter2) madapter2).setOnItemClickListener(new MenuItemAdapter2.RestMenuItemClickListener() {
             @Override
             public void onItemClick(int position, View v) {
                 int i = 0;
-                ArrayList<String> msg = ((MenuItemAdapter) madapter2).getItem(position).getReasons();
+                ArrayList<String> msg = ((MenuItemAdapter2) madapter2).getItem(position).getReasons();
                 StringBuilder sb = new StringBuilder();
                 for (i = 0; i < msg.size(); i++) {
                     sb.append(msg.get(i) + '\n');
                 }
-                Toast toast = Toast.makeText(self, sb.toString(), Toast.LENGTH_SHORT);
-                toast.show();
+                Toast.makeText(self, sb.toString(), Toast.LENGTH_SHORT).show();
+
+                //To gagan
+                String dishName = ((MenuItemAdapter2) madapter2).getItem(position).getDishName();
+                String dishDesc = ((MenuItemAdapter2) madapter2).getItem(position).getDishDesc();
+                String imageURL=((MenuItemAdapter2) madapter2).getItem(position).getImageUrl();
+                int dishType=((MenuItemAdapter2) madapter2).getItem(position).getDishType();
+                int lactose=((MenuItemAdapter2) madapter2).getItem(position).getLactose();
+                int gluten=((MenuItemAdapter2) madapter2).getItem(position).getGluten();
+                int[] calContent=((MenuItemAdapter2) madapter2).getItem(position).getCalContent();
+                int totCal=((MenuItemAdapter2) madapter2).getItem(position).getTotCal();
+                ArrayList<String> ingredients=((MenuItemAdapter2) madapter2).getItem(position).getIngredients();
+                int recommended=((MenuItemAdapter2) madapter2).getItem(position).getRecommended();
+                ArrayList<String> reasons=((MenuItemAdapter2) madapter2).getItem(position).getReasons();
+
+                Intent in = new Intent(MainActivity.this, ResultDisplayActivity.class);
+                in.putExtra("dishName", dishName);
+                in.putExtra("dishDesc", dishDesc);
+                in.putExtra("imageURL", imageURL);
+                in.putExtra("dishType", dishType);
+                in.putExtra("lactose", lactose);
+                in.putExtra("gluten", gluten);
+                in.putExtra("calContent", calContent);
+                in.putExtra("totCal", totCal);
+                in.putExtra("ingredients", ingredients);
+                in.putExtra("recommended", recommended);
+                in.putExtra("reasons", reasons);
+                startActivity(in);
             }
         });
 
@@ -200,9 +252,11 @@ public class MainActivity extends AppCompatActivity
             public void onResponse(String response) {
                 try {
                     String dishName = null;
+                    String dishDesc;
                     String imageUrl;
                     int dishVeg = 1;
                     int lactose = 1;
+                    int gluten = 1;
                     int reco = 1;
                     int totalCal;
 
@@ -215,8 +269,8 @@ public class MainActivity extends AppCompatActivity
                         ArrayList<String> reason = new ArrayList<String>();
 
                         dishName = resultJsonArray.getJSONObject(i).getString("item_name");
+                        dishDesc = resultJsonArray.getJSONObject(i).getString("item_description");
                         imageUrl = resultJsonArray.getJSONObject(i).getString("item_url");
-
 
                         dishVeg = resultJsonArray.getJSONObject(i).getInt("vegetarian_index");
                         if (dishVeg == 2 && (hset.contains("Vegetarian Meals") || hset.contains("Vegan Meals"))) {
@@ -227,33 +281,38 @@ public class MainActivity extends AppCompatActivity
                             reason.add("The Dish Contains Dairy Products");
                         }
 
-
                         lactose = resultJsonArray.getJSONObject(i).getInt("lactose_content");
                         if (lactose == 1 && hset.contains("Lactose Intolerance")) {
                             reco = 0;
                             reason.add("The Dish has Lactose Contents");
                         }
 
+                        gluten = resultJsonArray.getJSONObject(i).getInt("gluten_index");
+                        if (gluten == 1 && hset.contains("Gluten Intolerance")) {
+                            reco = 0;
+                            reason.add("The Dish has Gluten Contents");
+                        }
+
                         //Take calorie content in an array
                         JSONArray calorieArray = resultJsonArray.getJSONObject(i).getJSONArray("cal_content");
                         int[] calories = new int[4];
                         calories[0] = calorieArray.getJSONObject(0).getInt("Carbohydrates");
-                        if(calories[0]>ALLOWED_CARBS){
+                        if (calories[0] > ALLOWED_CARBS) {
                             reco = 0;
                             reason.add("The Dish has more Carbs than permitted for you");
                         }
                         calories[1] = calorieArray.getJSONObject(0).getInt("Fat");
-                        if(calories[1]>ALLOWED_FATS){
+                        if (calories[1] > ALLOWED_FATS) {
                             reco = 0;
                             reason.add("The Dish has more Fats than permitted for you");
                         }
                         calories[2] = calorieArray.getJSONObject(0).getInt("Protein");
-                        if(calories[2]>ALLOWED_PROTEINS){
+                        if (calories[2] > ALLOWED_PROTEINS) {
                             reco = 0;
                             reason.add("The Dish has more Proteins than permitted for you");
                         }
                         calories[3] = calorieArray.getJSONObject(0).getInt("Sugar");
-                        if(calories[3]>ALLOWED_SUGAR){
+                        if (calories[3] > ALLOWED_SUGAR) {
                             reco = 0;
                             reason.add("The Dish has more Sugar than permitted for you");
                         }
@@ -272,13 +331,13 @@ public class MainActivity extends AppCompatActivity
                         }
 
                         //Constructor to create an object of RestMenuItem
-                        RestMenuItem datum = new RestMenuItem(dishName, imageUrl, dishVeg, lactose, calories, totalCal, ingredients, reco, reason);
+                        RestMenuItem datum = new RestMenuItem(dishName, dishDesc, imageUrl, dishVeg, lactose, gluten, calories, totalCal, ingredients, reco, reason);
 
                         if (reco == 1)
                             //Add to Recycler View
-                            ((MenuItemAdapter) madapter).addItem(datum, madapter.getItemCount(), Color.GREEN);
+                            ((MenuItemAdapter) madapter).addItem(datum, madapter.getItemCount());
                         else
-                            ((MenuItemAdapter) madapter2).addItem(datum, madapter2.getItemCount(), Color.RED);
+                            ((MenuItemAdapter2) madapter2).addItem(datum, madapter2.getItemCount());
 
                     }
                 } catch (Exception e) {
@@ -433,32 +492,30 @@ public class MainActivity extends AppCompatActivity
             for (String ingr : separated)
                 hset.add(ingr);
         }
-        if(dbRecords.get(5).contains("Dr. Sumi Helal Diet")){
-            ALLOWED_SUGAR=0;
-        }
-        else
-            ALLOWED_SUGAR=999;
-        if(dbRecords.get(5).contains("Ketogenic Diet")){
-            ALLOWED_CARBS=10;
-            ALLOWED_FATS=300;
-            ALLOWED_PROTEINS=50;
-        }
-        else{
-            ALLOWED_CARBS=999;
-            ALLOWED_FATS=999;
-            ALLOWED_PROTEINS=999;
+        if (dbRecords.get(5).contains("Dr. Sumi Helal Diet")) {
+            ALLOWED_SUGAR = 0;
+        } else
+            ALLOWED_SUGAR = 999;
+        if (dbRecords.get(5).contains("Ketogenic Diet")) {
+            ALLOWED_CARBS = 10;
+            ALLOWED_FATS = 300;
+            ALLOWED_PROTEINS = 50;
+        } else {
+            ALLOWED_CARBS = 999;
+            ALLOWED_FATS = 999;
+            ALLOWED_PROTEINS = 999;
         }
         String[] calContent = dbRecords.get(6).split(",");
-        if(999!=Integer.parseInt(calContent[0]))
+        if (999 != Integer.parseInt(calContent[0]))
             ALLOWED_PROTEINS = Integer.parseInt(calContent[0]);
-        if(999!=Integer.parseInt(calContent[1]))
+        if (999 != Integer.parseInt(calContent[1]))
             ALLOWED_CARBS = Integer.parseInt(calContent[1]);
-        if(999!=Integer.parseInt(calContent[2]))
+        if (999 != Integer.parseInt(calContent[2]))
             ALLOWED_SUGAR = Integer.parseInt(calContent[2]);
-        if(999!=Integer.parseInt(calContent[4]))
+        if (999 != Integer.parseInt(calContent[4]))
             ALLOWED_FATS = Integer.parseInt(calContent[4]);
 
-        Toast.makeText(this,ALLOWED_PROTEINS+" "+ALLOWED_CARBS+" "+ALLOWED_SUGAR+" "+ALLOWED_FATS,Toast.LENGTH_LONG).show();
+        Toast.makeText(this, ALLOWED_PROTEINS + " " + ALLOWED_CARBS + " " + ALLOWED_SUGAR + " " + ALLOWED_FATS, Toast.LENGTH_LONG).show();
     }
 
     private void retrieveConditions() {

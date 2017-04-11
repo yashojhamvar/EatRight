@@ -64,7 +64,7 @@ public class MenuItemAdapter extends RecyclerView.Adapter<MenuItemAdapter.DataOb
     @Override
     public DataObjectHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.card, parent, false);
-        view.setBackgroundColor(color);
+        view.setBackgroundColor(Color.GREEN);
         DataObjectHolder dataObjectHolder = new DataObjectHolder(view);
         return dataObjectHolder;
     }
@@ -74,12 +74,12 @@ public class MenuItemAdapter extends RecyclerView.Adapter<MenuItemAdapter.DataOb
         holder.title.setText(m_data.get(position).getDishName());
         holder.cal.setText("Total Calories: "+String.valueOf(m_data.get(position).getTotCal()));
         holder.img.setImageUrl(m_data.get(position).getImageUrl(), imgLoad);
+
     }
 
-    public void addItem(RestMenuItem data, int index, int colour) {
+    public void addItem(RestMenuItem data, int index) {
         m_data.add(index, data);
         notifyItemInserted(index);
-        color = colour;
     }
 
     public void deleteItem(int index) {

@@ -61,8 +61,8 @@ public class MainActivity extends AppCompatActivity
     private RecyclerView.LayoutManager mlayout2;
 
     public static String USERNAME;
-    private final String RESTAURANT_URL = "http://192.168.0.6/dishes/Chuys";
-    private final String CONDITION_URL = "http://192.168.0.6/promotions";
+    private final String RESTAURANT_URL = "http://192.168.0.24/dishes/Chuys";
+    private final String CONDITION_URL = "http://192.168.0.24/promotions";
     public String totalResult;
     private RequestQueue requestQ;
 
@@ -78,6 +78,10 @@ public class MainActivity extends AppCompatActivity
     MyDBHandler dbHandler;
     public ArrayList<String> dbRecords;
     HashSet<String> hset = new HashSet<String>();
+    public int ALLOWED_SUGAR=999;
+    public int ALLOWED_CARBS=999;
+    public int ALLOWED_FATS=999;
+    public int ALLOWED_PROTEINS=999;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -108,11 +112,8 @@ public class MainActivity extends AppCompatActivity
         toggle.syncState();
 
         retrieveDataFromDB();
-        //Toast.makeText(this, "Retr from DB Done", Toast.LENGTH_SHORT).show();
         retrieveConditions();
-        //Toast.makeText(this, "Retr from Conditions Done", Toast.LENGTH_SHORT).show();
-        //showHSet();
-        //Toast.makeText(this, String.valueOf(hset.size()), Toast.LENGTH_SHORT).show();
+
 
         restaurantNameRecd = EatRight.RESTAURANTNAME;
         if (restaurantNameRecd == null || restaurantNameRecd.length() == 0) {
@@ -129,7 +130,6 @@ public class MainActivity extends AppCompatActivity
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
                 FirebaseUser user = firebaseAuth.getCurrentUser();
                 if (user != null) {
-                    // Toast.makeText(MainActivity.this, "You are In!", Toast.LENGTH_SHORT).show();
                     onSignedIn(user.getDisplayName(), user.getPhotoUrl(), user.getEmail());
                 } else {
                     onSignedOut();
@@ -238,8 +238,25 @@ public class MainActivity extends AppCompatActivity
                         JSONArray calorieArray = resultJsonArray.getJSONObject(i).getJSONArray("cal_content");
                         int[] calories = new int[4];
                         calories[0] = calorieArray.getJSONObject(0).getInt("Carbohydrates");
+                        if(calories[0]>ALLOWED_CARBS){
+                            reco = 0;
+                            reason.add("The Dish has more Carbs than permitted for you");
+                        }
                         calories[1] = calorieArray.getJSONObject(0).getInt("Fat");
+                        if(calories[1]>ALLOWED_FATS){
+                            reco = 0;
+                            reason.add("The Dish has more Fats than permitted for you");
+                        }
                         calories[2] = calorieArray.getJSONObject(0).getInt("Protein");
+                        if(calories[2]>ALLOWED_PROTEINS){
+                            reco = 0;
+                            reason.add("The Dish has more Proteins than permitted for you");
+                        }
+                        calories[3] = calorieArray.getJSONObject(0).getInt("Sugar");
+                        if(calories[3]>ALLOWED_SUGAR){
+                            reco = 0;
+                            reason.add("The Dish has more Sugar than permitted for you");
+                        }
                         totalCal = calorieArray.getJSONObject(0).getInt("Calories");
 
                         //Take ingredients in an array
@@ -350,7 +367,6 @@ public class MainActivity extends AppCompatActivity
             startActivity(prefPage);
             finish();
         } else if (id == R.id.nav_sign_out) {
-            //Toast.makeText(this,"Sign Out?",Toast.LENGTH_SHORT).show();
             AuthUI.getInstance().signOut(this);
             finish();
             return true;
@@ -417,6 +433,32 @@ public class MainActivity extends AppCompatActivity
             for (String ingr : separated)
                 hset.add(ingr);
         }
+        if(dbRecords.get(5).contains("Dr. Sumi Helal Diet")){
+            ALLOWED_SUGAR=0;
+        }
+        else
+            ALLOWED_SUGAR=999;
+        if(dbRecords.get(5).contains("Ketogenic Diet")){
+            ALLOWED_CARBS=10;
+            ALLOWED_FATS=300;
+            ALLOWED_PROTEINS=50;
+        }
+        else{
+            ALLOWED_CARBS=999;
+            ALLOWED_FATS=999;
+            ALLOWED_PROTEINS=999;
+        }
+        String[] calContent = dbRecords.get(6).split(",");
+        if(999!=Integer.parseInt(calContent[0]))
+            ALLOWED_PROTEINS = Integer.parseInt(calContent[0]);
+        if(999!=Integer.parseInt(calContent[1]))
+            ALLOWED_CARBS = Integer.parseInt(calContent[1]);
+        if(999!=Integer.parseInt(calContent[2]))
+            ALLOWED_SUGAR = Integer.parseInt(calContent[2]);
+        if(999!=Integer.parseInt(calContent[4]))
+            ALLOWED_FATS = Integer.parseInt(calContent[4]);
+
+        Toast.makeText(this,ALLOWED_PROTEINS+" "+ALLOWED_CARBS+" "+ALLOWED_SUGAR+" "+ALLOWED_FATS,Toast.LENGTH_LONG).show();
     }
 
     private void retrieveConditions() {

@@ -11,14 +11,16 @@ import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class MyDBHandler extends SQLiteOpenHelper {
-    private static final String DATABASE_NAME = "eatRightDB.db";
-    private static final int DATABASE_VERSION = 1;
-    public static final String TABLE_USERPREFERENCES = "userPreferences";
-    public static final String COLUMN_USERNAME = "_userName";
-    public static final String COLUMN_MEALTYPE = "_mealType";
-    public static final String COLUMN_AVOIDVEG = "_avoidVeg";
-    public static final String COLUMN_AVOIDMEAT = "_avoidMeat";
-    public static final String COLUMN_CONDITIONS = "_conditions";
+    public static String DATABASE_NAME = "eatRightDB.db";
+    public static int DATABASE_VERSION = 2;
+    public static String TABLE_USERPREFERENCES = "userPreferences";
+    public static String COLUMN_USERNAME = "_userName";
+    public static String COLUMN_MEALTYPE = "_mealtype";
+    public static String COLUMN_AVOIDVEG = "_avoidVeg";
+    public static String COLUMN_AVOIDMEAT = "_avoidMeat";
+    public static String COLUMN_CONDITIONS = "_conditions";
+    public static String COLUMN_DIETS = "_diets";
+    public static String COLUMN_CALORIES = "_calories";
 
     public MyDBHandler(Context context, String name, SQLiteDatabase.CursorFactory factory, int version) {
         super(context, DATABASE_NAME, factory, DATABASE_VERSION);
@@ -31,7 +33,9 @@ public class MyDBHandler extends SQLiteOpenHelper {
                 COLUMN_MEALTYPE + " TEXT, " +
                 COLUMN_AVOIDVEG + " TEXT, " +
                 COLUMN_AVOIDMEAT + " TEXT, " +
-                COLUMN_CONDITIONS + " TEXT " +
+                COLUMN_CONDITIONS + " TEXT, " +
+                COLUMN_DIETS + " TEXT, " +
+                COLUMN_CALORIES + " TEXT " +
                 ")";
         db.execSQL(query);
     }
@@ -49,6 +53,8 @@ public class MyDBHandler extends SQLiteOpenHelper {
         values.put(COLUMN_AVOIDMEAT, userPreferences.get_avoidMeat());
         values.put(COLUMN_AVOIDVEG, userPreferences.get_avoidVeg());
         values.put(COLUMN_CONDITIONS, userPreferences.get_conditions());
+        values.put(COLUMN_DIETS, userPreferences.get_diets());
+        values.put(COLUMN_CALORIES, userPreferences.get_calories());
 
         SQLiteDatabase db = getWritableDatabase();
         String query = "SELECT count(*) FROM " + TABLE_USERPREFERENCES;
@@ -58,10 +64,14 @@ public class MyDBHandler extends SQLiteOpenHelper {
         if (recordCount > 0) {
             db.delete(TABLE_USERPREFERENCES, null, null);
             db.insert(TABLE_USERPREFERENCES, null, values);
+            recordCount = 555;
         } else {
             db.insert(TABLE_USERPREFERENCES, null, values);
+            recordCount = 666;
         }
         db.close();
+        cursor.close();
+
         return recordCount;
     }
 
@@ -95,6 +105,14 @@ public class MyDBHandler extends SQLiteOpenHelper {
             if (cursor2.getString(cursor2.getColumnIndex(COLUMN_CONDITIONS)) != null || (!cursor2.getString(cursor2.getColumnIndex(COLUMN_CONDITIONS)).isEmpty())) {
                 String col_conditions = cursor2.getString(cursor2.getColumnIndex(COLUMN_CONDITIONS));
                 allRecords.add(col_conditions);
+            }
+            if (cursor2.getString(cursor2.getColumnIndex(COLUMN_DIETS)) != null || (!cursor2.getString(cursor2.getColumnIndex(COLUMN_DIETS)).isEmpty())) {
+                String col_diets = cursor2.getString(cursor2.getColumnIndex(COLUMN_DIETS));
+                allRecords.add(col_diets);
+            }
+            if (cursor2.getString(cursor2.getColumnIndex(COLUMN_CALORIES)) != null || (!cursor2.getString(cursor2.getColumnIndex(COLUMN_CALORIES)).isEmpty())) {
+                String col_calories = cursor2.getString(cursor2.getColumnIndex(COLUMN_CALORIES));
+                allRecords.add(col_calories);
             }
         }
         return allRecords;

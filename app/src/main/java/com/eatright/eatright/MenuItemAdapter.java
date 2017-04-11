@@ -13,6 +13,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.android.volley.toolbox.ImageLoader;
+import com.android.volley.toolbox.NetworkImageView;
+
 import java.util.ArrayList;
 
 public class MenuItemAdapter extends RecyclerView.Adapter<MenuItemAdapter.DataObjectHolder> {
@@ -20,25 +23,30 @@ public class MenuItemAdapter extends RecyclerView.Adapter<MenuItemAdapter.DataOb
     private static RestMenuItemClickListener clickListener;
     private static Context m_context;
     public static int color;
+    private ImageLoader imgLoad;
 
     public MenuItemAdapter(Context con) {
         m_context = con;
         m_data = new ArrayList<RestMenuItem>();
+        imgLoad = VolleySingleton.getInstance(con).getImageLoader();
     }
 
     public MenuItemAdapter(Context con, ArrayList<RestMenuItem> data) {
         m_context = con;
         m_data = data;
+        imgLoad = VolleySingleton.getInstance(con).getImageLoader();
     }
 
     public static class DataObjectHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         TextView title;
         TextView cal;
+        NetworkImageView img;
 
         public DataObjectHolder(View itemView) {
             super(itemView);
             title = (TextView) itemView.findViewById(R.id.title);
             cal = (TextView) itemView.findViewById(R.id.date);
+            img   = (NetworkImageView) itemView.findViewById(R.id.img);
             itemView.setOnClickListener(this);
         }
 
@@ -65,7 +73,7 @@ public class MenuItemAdapter extends RecyclerView.Adapter<MenuItemAdapter.DataOb
     public void onBindViewHolder(DataObjectHolder holder, int position) {
         holder.title.setText(m_data.get(position).getDishName());
         holder.cal.setText("Total Calories: "+String.valueOf(m_data.get(position).getTotCal()));
-        //holder.img.setImageUrl(m_data.get(position).imageUrl(), imgLoad);
+        holder.img.setImageUrl(m_data.get(position).getImageUrl(), imgLoad);
     }
 
     public void addItem(RestMenuItem data, int index, int colour) {

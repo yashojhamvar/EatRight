@@ -9,6 +9,7 @@ import java.util.ArrayList;
 public class RestMenuItem {
 
     private String dishName;        //name of dish
+    private String imageURL;
     private int dishType;        //type of dish- vegan - 0,vegetarian - 1 ,non vegetarian - 2
     private int lactose;         //Is the dish Lactose Intolerant 0/1
     private int[] calContent;       //array of calorie content divided over diff macros- carbs,protein,fats
@@ -17,8 +18,9 @@ public class RestMenuItem {
     private int recommended;
     private ArrayList<String> reasons;
 
-    public RestMenuItem(String dishName, int dishType, int lactoseIndex, int[] calContent, int totCal, ArrayList<String> ingredients, int reco, ArrayList<String> reason) {
+    public RestMenuItem(String dishName, String imageUrl, int dishType, int lactoseIndex, int[] calContent, int totCal, ArrayList<String> ingredients, int reco, ArrayList<String> reason) {
         this.dishName = dishName;
+        this.imageURL = imageUrl;
         this.dishType = dishType;
         this.lactose = lactoseIndex;
         this.calContent = calContent;
@@ -34,6 +36,10 @@ public class RestMenuItem {
 
     public String getDishName() {
         return dishName;
+    }
+
+    public String getImageUrl() {
+        return imageURL;
     }
 
     public ArrayList<String> getIngredients() {

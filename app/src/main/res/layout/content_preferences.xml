@@ -49,7 +49,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
-                android:onClick="selectItem"
                 android:text="Non-Vegetarian Meals" />
 
             <CheckBox
@@ -57,7 +56,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
-                android:onClick="selectItem"
                 android:text="@string/veg_meal" />
 
             <CheckBox
@@ -65,7 +63,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
-                android:onClick="selectItem"
                 android:text="@string/vegan_meal" />
 
             <View
@@ -91,7 +88,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
-                android:onClick="selectItem"
                 android:text="Chicken" />
 
             <CheckBox
@@ -99,7 +95,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
-                android:onClick="selectItem"
                 android:text="Pork" />
 
             <CheckBox
@@ -107,7 +102,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
-                android:onClick="selectItem"
                 android:text="Fish" />
 
             <CheckBox
@@ -115,7 +109,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
-                android:onClick="selectItem"
                 android:text="Beef" />
 
             <View
@@ -141,7 +134,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
-                android:onClick="selectItem"
                 android:text="Onions" />
 
             <CheckBox
@@ -149,7 +141,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
-                android:onClick="selectItem"
                 android:text="Corn" />
 
             <CheckBox
@@ -157,7 +148,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
-                android:onClick="selectItem"
                 android:text="Lettuce" />
 
             <CheckBox
@@ -165,7 +155,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
-                android:onClick="selectItem"
                 android:text="Tomatoes" />
 
             <CheckBox
@@ -173,7 +162,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
-                android:onClick="selectItem"
                 android:text="Dairy" />
 
             <CheckBox
@@ -181,7 +169,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
-                android:onClick="selectItem"
                 android:text="Wheat" />
 
             <View
@@ -207,7 +194,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
-                android:onClick="selectItem"
                 android:text="Diabetes" />
 
             <CheckBox
@@ -215,7 +201,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
-                android:onClick="selectItem"
                 android:text="Lactose Intolerance" />
 
             <CheckBox
@@ -223,7 +208,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
-                android:onClick="selectItem"
                 android:text="Gluten Intolerance" />
 
             <CheckBox
@@ -231,7 +215,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
-                android:onClick="selectItem"
                 android:text="Nut Allergy" />
 
             <CheckBox
@@ -239,7 +222,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
-                android:onClick="selectItem"
                 android:text="High Blood Pressure" />
 
             <View
@@ -265,7 +247,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
-                android:onClick="selectItem"
                 android:text="Ketogenic Diet" />
 
             <CheckBox
@@ -273,7 +254,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
-                android:onClick="selectItem"
                 android:text="Dr. Sumi Helal Diet" />
 
             <View
@@ -302,13 +282,18 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Total Proteins" />
+                    android:enabled="true"
+                    android:paddingLeft="10dp"
+                    android:text="Total Proteins"
+                    android:textColor="@color/authui_inputTextColorDark"
+                    android:textSize="14sp" />
 
                 <EditText
                     android:id="@+id/constraint_Protein"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp" />
+                    android:layout_marginLeft="10dp"
+                    android:text="0"/>
             </LinearLayout>
 
             <LinearLayout
@@ -319,13 +304,17 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Total Carbohydrates" />
+                    android:paddingLeft="10dp"
+                    android:text="Total Carbohydrates"
+                    android:textColor="@color/authui_inputTextColorDark"
+                    android:textSize="14sp"/>
 
                 <EditText
                     android:id="@+id/constraint_carbs"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp" />
+                    android:layout_marginLeft="10dp"
+                    android:text="0"/>
             </LinearLayout>
 
             <LinearLayout
@@ -336,13 +325,17 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Total Sugar" />
+                    android:paddingLeft="10dp"
+                    android:text="Total Sugar"
+                    android:textColor="@color/authui_inputTextColorDark"
+                    android:textSize="14sp"/>
 
                 <EditText
                     android:id="@+id/constraint_sugar"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp" />
+                    android:layout_marginLeft="10dp"
+                    android:text="0"/>
             </LinearLayout>
 
             <LinearLayout
@@ -353,13 +346,17 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Total Calories" />
+                    android:paddingLeft="10dp"
+                    android:text="Total Calories"
+                    android:textColor="@color/authui_inputTextColorDark"
+                    android:textSize="14sp"/>
 
                 <EditText
                     android:id="@+id/constraint_calories"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp" />
+                    android:layout_marginLeft="10dp"
+                    android:text="0"/>
             </LinearLayout>
 
             <LinearLayout
@@ -370,13 +367,17 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Total Fat" />
+                    android:paddingLeft="10dp"
+                    android:text="Total Fat"
+                    android:textColor="@color/authui_inputTextColorDark"
+                    android:textSize="14sp"/>
 
                 <EditText
                     android:id="@+id/constraint_fat"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp" />
+                    android:layout_marginLeft="10dp"
+                    android:text="0"/>
             </LinearLayout>
 
             <View

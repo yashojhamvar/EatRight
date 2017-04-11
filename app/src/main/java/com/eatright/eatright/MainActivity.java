@@ -61,8 +61,8 @@ public class MainActivity extends AppCompatActivity
     private RecyclerView.LayoutManager mlayout2;
 
     public static String USERNAME;
-    private final String RESTAURANT_URL = "http://192.168.0.24/dishes/";
-    private final String CONDITION_URL = "http://192.168.0.24/promotions";
+    private final String RESTAURANT_URL = "http://192.168.0.6/dishes/Chuys";
+    private final String CONDITION_URL = "http://192.168.0.6/promotions";
     public String totalResult;
     private RequestQueue requestQ;
 
@@ -107,12 +107,12 @@ public class MainActivity extends AppCompatActivity
         drawer.setDrawerListener(toggle);
         toggle.syncState();
 
-        /*retrieveDataFromDB();
-        Toast.makeText(this, "Retr from DB Done", Toast.LENGTH_SHORT).show();
+        retrieveDataFromDB();
+        //Toast.makeText(this, "Retr from DB Done", Toast.LENGTH_SHORT).show();
         retrieveConditions();
-        Toast.makeText(this, "Retr from Conditions Done", Toast.LENGTH_SHORT).show();
-        showHSet();
-        Toast.makeText(this, String.valueOf(hset.size()), Toast.LENGTH_SHORT).show();*/
+        //Toast.makeText(this, "Retr from Conditions Done", Toast.LENGTH_SHORT).show();
+        //showHSet();
+        //Toast.makeText(this, String.valueOf(hset.size()), Toast.LENGTH_SHORT).show();
 
         restaurantNameRecd = EatRight.RESTAURANTNAME;
         if (restaurantNameRecd == null || restaurantNameRecd.length() == 0) {
@@ -138,9 +138,7 @@ public class MainActivity extends AppCompatActivity
                                     .createSignInIntentBuilder()
                                     .setIsSmartLockEnabled(false)
                                     .setProviders(Arrays.asList(new AuthUI.IdpConfig.Builder(AuthUI.EMAIL_PROVIDER).build(),
-                                            new AuthUI.IdpConfig.Builder(AuthUI.GOOGLE_PROVIDER).build(),
-                                            new AuthUI.IdpConfig.Builder(AuthUI.FACEBOOK_PROVIDER).build(),
-                                            new AuthUI.IdpConfig.Builder(AuthUI.TWITTER_PROVIDER).build()))
+                                            new AuthUI.IdpConfig.Builder(AuthUI.GOOGLE_PROVIDER).build()))
                                     .build(),
                             RC_SIGN_IN);
 
@@ -153,7 +151,21 @@ public class MainActivity extends AppCompatActivity
             @Override
             public void onItemClick(int position, View v) {
                 int i = 0;
-                ArrayList<String> msg = ((MenuItemAdapter) madapter).getItem(position).getIngredients();
+                ArrayList<String> msg = ((MenuItemAdapter) madapter).getItem(position).getReasons();
+                StringBuilder sb = new StringBuilder();
+                for (i = 0; i < msg.size(); i++) {
+                    sb.append(msg.get(i) + '\n');
+                }
+                Toast toast = Toast.makeText(self, sb.toString(), Toast.LENGTH_SHORT);
+                toast.show();
+            }
+        });
+
+        ((MenuItemAdapter) madapter2).setOnItemClickListener(new MenuItemAdapter.RestMenuItemClickListener() {
+            @Override
+            public void onItemClick(int position, View v) {
+                int i = 0;
+                ArrayList<String> msg = ((MenuItemAdapter) madapter2).getItem(position).getReasons();
                 StringBuilder sb = new StringBuilder();
                 for (i = 0; i < msg.size(); i++) {
                     sb.append(msg.get(i) + '\n');
@@ -183,12 +195,12 @@ public class MainActivity extends AppCompatActivity
 
     private void getRestaurantData() {
         final Context self = this;
-        // Toast.makeText(this, "In Get Restaurant", Toast.LENGTH_SHORT).show();
-        final StringRequest res = new StringRequest(Request.Method.GET, RESTAURANT_URL + restaurantNameRecd, new Response.Listener<String>() {
+        final StringRequest res = new StringRequest(Request.Method.GET, RESTAURANT_URL, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 try {
                     String dishName = null;
+                    String imageUrl;
                     int dishVeg = 1;
                     int lactose = 1;
                     int reco = 1;
@@ -199,9 +211,11 @@ public class MainActivity extends AppCompatActivity
                     totalResult = response;
                     JSONArray resultJsonArray = (new JSONObject(response)).getJSONArray("menu_items");
                     for (int i = 0; i < resultJsonArray.length(); ++i) {
+                        reco = 1;
                         ArrayList<String> reason = new ArrayList<String>();
 
                         dishName = resultJsonArray.getJSONObject(i).getString("item_name");
+                        imageUrl = resultJsonArray.getJSONObject(i).getString("item_url");
 
 
                         dishVeg = resultJsonArray.getJSONObject(i).getInt("vegetarian_index");
@@ -221,12 +235,12 @@ public class MainActivity extends AppCompatActivity
                         }
 
                         //Take calorie content in an array
-                        JSONArray calorieArray = resultJsonArray.getJSONObject(i).getJSONArray("Cal_content");
+                        JSONArray calorieArray = resultJsonArray.getJSONObject(i).getJSONArray("cal_content");
                         int[] calories = new int[4];
                         calories[0] = calorieArray.getJSONObject(0).getInt("Carbohydrates");
-                        calories[1] = calorieArray.getJSONObject(1).getInt("Fat");
-                        calories[2] = calorieArray.getJSONObject(2).getInt("Protein");
-                        totalCal = calorieArray.getJSONObject(3).getInt("Calories");
+                        calories[1] = calorieArray.getJSONObject(0).getInt("Fat");
+                        calories[2] = calorieArray.getJSONObject(0).getInt("Protein");
+                        totalCal = calorieArray.getJSONObject(0).getInt("Calories");
 
                         //Take ingredients in an array
                         JSONArray ingredientArray = resultJsonArray.getJSONObject(i).getJSONArray("Ingredients");
@@ -241,7 +255,7 @@ public class MainActivity extends AppCompatActivity
                         }
 
                         //Constructor to create an object of RestMenuItem
-                        RestMenuItem datum = new RestMenuItem(dishName, dishVeg, lactose, calories, totalCal, ingredients, reco, reason);
+                        RestMenuItem datum = new RestMenuItem(dishName, imageUrl, dishVeg, lactose, calories, totalCal, ingredients, reco, reason);
 
                         if (reco == 1)
                             //Add to Recycler View
@@ -334,6 +348,7 @@ public class MainActivity extends AppCompatActivity
             Intent prefPage = new Intent(this, FoodPreferences.class);
             prefPage.putExtra("username", USERNAME);
             startActivity(prefPage);
+            finish();
         } else if (id == R.id.nav_sign_out) {
             //Toast.makeText(this,"Sign Out?",Toast.LENGTH_SHORT).show();
             AuthUI.getInstance().signOut(this);
@@ -384,10 +399,10 @@ public class MainActivity extends AppCompatActivity
     }
 
     public void retrieveDataFromDB() {
-        dbHandler = new MyDBHandler(this, null, null, 1);
+        dbHandler = new MyDBHandler(this, null, null, 2);
         dbRecords = dbHandler.retrievePreferences();
         if (dbRecords != null) {
-            Toast.makeText(this, "Retrieved data= " + dbRecords, Toast.LENGTH_LONG).show();
+            Toast.makeText(this, "Retrieved data", Toast.LENGTH_LONG).show();
             makeHashSet();
         } else {
             Toast.makeText(this, "Retrieved data = NULL", Toast.LENGTH_LONG).show();
@@ -397,9 +412,8 @@ public class MainActivity extends AppCompatActivity
     }
 
     public void makeHashSet() {
-        Iterator<String> it = dbRecords.iterator();
-        while (it.hasNext()) {
-            String[] separated = it.next().split(",");
+        for (int i = 1; i < 4; i++) {
+            String[] separated = dbRecords.get(i).split(",");
             for (String ingr : separated)
                 hset.add(ingr);
         }
@@ -409,7 +423,6 @@ public class MainActivity extends AppCompatActivity
         dbHandler = new MyDBHandler(this, null, null, 1);
         dbRecords = dbHandler.retrievePreferences();
         final String[] conditions = dbRecords.get(4).split(",");
-
         final Context self = this;
         final StringRequest res = new StringRequest(Request.Method.GET, CONDITION_URL, new Response.Listener<String>() {
             @Override
@@ -417,12 +430,11 @@ public class MainActivity extends AppCompatActivity
                 try {
                     totalResult = response;
                     JSONArray resultJsonArray = (new JSONObject(response)).getJSONArray("conditions");
-
-                    for (int j = 0; j < conditions.length; j++) {
-                        for (int i = 0; i < resultJsonArray.length(); ++i) {
-                            if (resultJsonArray.getJSONObject(i).getString("condition_name").equals(conditions[j])) {
-                                JSONArray ingredientsToAvoid = resultJsonArray.getJSONObject(i).getJSONArray("ingredients_avoid");
-                                for (int k = 0; k < ingredientsToAvoid.length(); ++k) {
+                    for (int i = 0; i < conditions.length; i++) {
+                        for (int j = 0; j < resultJsonArray.length(); j++) {
+                            if (resultJsonArray.getJSONObject(j).getString("condition_name").equals(conditions[i])) {
+                                JSONArray ingredientsToAvoid = resultJsonArray.getJSONObject(j).getJSONArray("ingredients_avoid");
+                                for (int k = 0; k < ingredientsToAvoid.length(); k++) {
                                     hset.add(ingredientsToAvoid.getJSONObject(k).getString("ingredient_name"));
                                 }
                             }

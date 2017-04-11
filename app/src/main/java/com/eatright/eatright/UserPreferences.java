@@ -14,6 +14,7 @@ public class UserPreferences {
     private String _diets;
     private String _calories;
 
+
     public UserPreferences(String username, String meal_type, String avoidVeg, String avoidMeat, String conditions, String diets, String calories) {
         this._username = username;
         this._mealtype = meal_type;

@@ -67,6 +67,8 @@ public class MenuItemAdapter extends RecyclerView.Adapter<MenuItemAdapter.DataOb
         view.setBackgroundColor(Color.GREEN);
         DataObjectHolder dataObjectHolder = new DataObjectHolder(view);
         return dataObjectHolder;
+
+
     }
 
     @Override

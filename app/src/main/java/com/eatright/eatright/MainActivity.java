@@ -114,12 +114,16 @@ public class MainActivity extends AppCompatActivity
         retrieveDataFromDB();
         retrieveConditions();
 
+        ((MenuItemAdapter) madapter).clear();
+        ((MenuItemAdapter2) madapter2).clear();
+        getRestaurantData();
 
         restaurantNameRecd = EatRight.RESTAURANTNAME;
         if (restaurantNameRecd == null || restaurantNameRecd.length() == 0) {
             Toast.makeText(this, "You are NOT at any Restaurant", Toast.LENGTH_SHORT).show();
         } else {
             ((MenuItemAdapter) madapter).clear();
+            ((MenuItemAdapter2) madapter2).clear();
             Toast.makeText(this, "You are at " + restaurantNameRecd, Toast.LENGTH_SHORT).show();
             getRestaurantData();
         }
@@ -232,13 +236,6 @@ public class MainActivity extends AppCompatActivity
             public void onClick(View v) {
                 ((MenuItemAdapter) madapter).clear();
                 getRestaurantData();
-            }
-        });
-
-        final Button conditionButton = (Button) findViewById(R.id.buttonCondition);
-        conditionButton.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                retrieveConditions();
             }
         });
 

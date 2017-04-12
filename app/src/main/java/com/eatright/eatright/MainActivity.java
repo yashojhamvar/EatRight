@@ -58,7 +58,7 @@ public class MainActivity extends AppCompatActivity
     private RecyclerView.LayoutManager mlayout;
 
     public static String USERNAME;
-    private final String RESTAURANT_URL = "http://192.168.0.24/dishes/Chuys";
+    private final String RESTAURANT_URL = "http://192.168.0.24/dishes/";
     private final String CONDITION_URL = "http://192.168.0.24/promotions";
     public String totalResult;
     private RequestQueue requestQ;
@@ -96,6 +96,7 @@ public class MainActivity extends AppCompatActivity
         SystemRequirementsChecker.checkWithDefaultDialogs(this);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        TextView restView = (TextView) findViewById(R.id.textViewRestName);
         //Yasho - for Auth with FireBase
         mAuth = FirebaseAuth.getInstance();
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -108,17 +109,15 @@ public class MainActivity extends AppCompatActivity
         retrieveConditions();
 
         ((MenuItemAdapter) madapter).clear();
-        getRestaurantData();
-
         restaurantNameRecd = EatRight.RESTAURANTNAME;
+
         if (restaurantNameRecd == null || restaurantNameRecd.length() == 0) {
-            Toast.makeText(this, "You are NOT at any Restaurant", Toast.LENGTH_SHORT).show();
+            restView.setText("You are not at any Restaurant");
         } else {
             ((MenuItemAdapter) madapter).clear();
-            Toast.makeText(this, "You are at " + restaurantNameRecd, Toast.LENGTH_SHORT).show();
+            restView.setText("You are at " + restaurantNameRecd);
             getRestaurantData();
         }
-
 
         mAuthListener = new FirebaseAuth.AuthStateListener() {
             @Override
@@ -173,21 +172,11 @@ public class MainActivity extends AppCompatActivity
             }
         });
 
-
-        final Button restaurantButton = (Button) findViewById(R.id.buttonRestaurant);
-        restaurantButton.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                ((MenuItemAdapter) madapter).clear();
-                getRestaurantData();
-            }
-        });
-
-
     }
 
     private void getRestaurantData() {
         final Context self = this;
-        final StringRequest res = new StringRequest(Request.Method.GET, RESTAURANT_URL, new Response.Listener<String>() {
+        final StringRequest res = new StringRequest(Request.Method.GET, RESTAURANT_URL + restaurantNameRecd, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 try {
@@ -418,10 +407,8 @@ public class MainActivity extends AppCompatActivity
         dbRecords = dbHandler.retrievePreferences();
 
         if (dbRecords != null && !dbRecords.isEmpty()) {
-            //Toast.makeText(this, "Retrieved data", Toast.LENGTH_LONG).show();
             makeHashSet();
         } else {
-            //Toast.makeText(this, "Retrieved data = NULL", Toast.LENGTH_LONG).show();
         }
         dbHandler.close();
 

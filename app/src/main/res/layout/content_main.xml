@@ -8,19 +8,15 @@
     android:orientation="vertical"
     android:weightSum="1">
 
-
-    <Button
-        android:id="@+id/buttonCondition"
+    <TextView
+        android:id="@+id/textViewRestName"
+        android:layout_marginTop="65dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="50dp"
-        android:text="Condition" />
-
-    <Button
-        android:id="@+id/buttonRestaurant"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Restaurant" />
+        android:text="TextView"
+        android:gravity="center"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textColor="@color/tw__composer_black"/>
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recycler_view"

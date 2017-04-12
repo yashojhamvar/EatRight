@@ -30,25 +30,21 @@ public class EatRight extends Application {
 
             @Override
             public void onEnteredRegion(Region region, List<Beacon> list) {
-                /*if (region.getIdentifier().equals("Subway"))
-                    callApp("Subway");
-                else if (region.getIdentifier().equals("Subway2"))
-                    callApp("Subway2");*/
                 RESTAURANTNAME = region.getIdentifier();
                 callApp();
             }
 
             @Override
             public void onExitedRegion(Region region) {
-                // could add an "exit" notification too if you want (-:
             }
         });
         beaconManager.connect(new BeaconManager.ServiceReadyCallback() {
             @Override
             public void onServiceReady() {
-                beaconManager.setBackgroundScanPeriod(20000,3000);
-                beaconManager.startMonitoring(new Region("Subway", null, 0001, null));
-                beaconManager.startMonitoring(new Region("Subway2", null, 0002, null));
+                beaconManager.setBackgroundScanPeriod(6000, 500);
+                beaconManager.startMonitoring(new Region("IndianCuisine", null, 0001, null));
+                beaconManager.startMonitoring(new Region("BentoCafe", null, 0002, null));
+                beaconManager.startMonitoring(new Region("Chuys", null, 0003, null));
             }
         });
     }

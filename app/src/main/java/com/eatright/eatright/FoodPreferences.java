@@ -105,14 +105,14 @@ public class FoodPreferences extends AppCompatActivity {
     public void retrieveData() {
         dbRecords = dbHandler.retrievePreferences();
         if (dbRecords != null && (!dbRecords.isEmpty())) {
-            Toast.makeText(this, "Retrieved data= " + dbRecords, Toast.LENGTH_SHORT).show();
+            //Toast.makeText(this, "Retrieved data= " + dbRecords, Toast.LENGTH_SHORT).show();
             setCheckboxState();
         } else if (dbRecords == null) {
-            Toast.makeText(this, "Retrieved data = NULL" + dbRecords, Toast.LENGTH_SHORT).show();
+            //Toast.makeText(this, "Retrieved data = NULL" + dbRecords, Toast.LENGTH_SHORT).show();
         } else if (dbRecords.isEmpty()) {
-            Toast.makeText(this, "Retrieved data = EMPTY", Toast.LENGTH_SHORT).show();
+            //Toast.makeText(this, "Retrieved data = EMPTY", Toast.LENGTH_SHORT).show();
         } else {
-            Toast.makeText(this, "Retrieved data = NEITHER", Toast.LENGTH_SHORT).show();
+            //Toast.makeText(this, "Retrieved data = NEITHER", Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -261,7 +261,7 @@ public class FoodPreferences extends AppCompatActivity {
         //UserPreferences userPreferences = new UserPreferences(USERNAME, mealType_list.toString(), avoidVeg_list.toString(), avoidMeat_list.toString(), conditions_list.toString(), diets_list.toString(), calorie_list.toString());
         UserPreferences userPreferences = new UserPreferences(USERNAME, convertToString(mealType_list), convertToString(avoidVeg_list), convertToString(avoidMeat_list), convertToString(conditions_list), convertToString(diets_list), convertToString(calorie_list));
         int recordCount = dbHandler.addPreferences(userPreferences);
-        Toast.makeText(this, "Preferences Saved!! : " + recordCount, Toast.LENGTH_LONG).show();
+        Toast.makeText(this, "Preferences Saved!!", Toast.LENGTH_LONG).show();
         Intent mainPage = new Intent(this, MainActivity.class);
         startActivity(mainPage);
         finish();

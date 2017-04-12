@@ -21,26 +21,10 @@
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/3.3/taskArtifacts/fileSnapshots.bin" afterPath="$PROJECT_DIR$/.gradle/3.3/taskArtifacts/fileSnapshots.bin" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/3.3/taskArtifacts/taskArtifacts.bin" afterPath="$PROJECT_DIR$/.gradle/3.3/taskArtifacts/taskArtifacts.bin" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/3.3/taskArtifacts/taskArtifacts.lock" afterPath="$PROJECT_DIR$/.gradle/3.3/taskArtifacts/taskArtifacts.lock" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/3.3/tasks/_app_compileDebugJavaWithJavac/localClassSetAnalysis/localClassSetAnalysis.bin" afterPath="$PROJECT_DIR$/.gradle/3.3/tasks/_app_compileDebugJavaWithJavac/localClassSetAnalysis/localClassSetAnalysis.bin" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/3.3/tasks/_app_compileDebugJavaWithJavac/localClassSetAnalysis/localClassSetAnalysis.lock" afterPath="$PROJECT_DIR$/.gradle/3.3/tasks/_app_compileDebugJavaWithJavac/localClassSetAnalysis/localClassSetAnalysis.lock" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/3.3/tasks/_app_compileDebugJavaWithJavac/localJarClasspathSnapshot/localJarClasspathSnapshot.lock" afterPath="$PROJECT_DIR$/.gradle/3.3/tasks/_app_compileDebugJavaWithJavac/localJarClasspathSnapshot/localJarClasspathSnapshot.lock" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/AppIcon-web.png" afterPath="$PROJECT_DIR$/app/src/main/AppIcon-web.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/AppIconRound-web.png" afterPath="$PROJECT_DIR$/app/src/main/AppIconRound-web.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-hdpi/appicon.png" afterPath="$PROJECT_DIR$/app/src/main/res/mipmap-hdpi/appicon.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-hdpi/appiconround.png" afterPath="$PROJECT_DIR$/app/src/main/res/mipmap-hdpi/appiconround.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-mdpi/appicon.png" afterPath="$PROJECT_DIR$/app/src/main/res/mipmap-mdpi/appicon.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-mdpi/appiconround.png" afterPath="$PROJECT_DIR$/app/src/main/res/mipmap-mdpi/appiconround.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-xhdpi/appicon.png" afterPath="$PROJECT_DIR$/app/src/main/res/mipmap-xhdpi/appicon.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-xhdpi/appiconround.png" afterPath="$PROJECT_DIR$/app/src/main/res/mipmap-xhdpi/appiconround.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-xxhdpi/appicon.png" afterPath="$PROJECT_DIR$/app/src/main/res/mipmap-xxhdpi/appicon.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-xxhdpi/appiconround.png" afterPath="$PROJECT_DIR$/app/src/main/res/mipmap-xxhdpi/appiconround.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-xxxhdpi/appicon.png" afterPath="$PROJECT_DIR$/app/src/main/res/mipmap-xxxhdpi/appicon.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-xxxhdpi/appiconround.png" afterPath="$PROJECT_DIR$/app/src/main/res/mipmap-xxxhdpi/appiconround.png" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/eatright/eatright/EatRight.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/eatright/eatright/EatRight.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/eatright/eatright/FoodPreferences.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/eatright/eatright/FoodPreferences.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/eatright/eatright/MainActivity.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/eatright/eatright/MainActivity.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/layout/content_main.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/content_main.xml" />
     </list>
     <ignored path="EatRight.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -77,16 +61,16 @@
       <file leaf-file-name="MainActivity.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/com/eatright/eatright/MainActivity.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="622">
-              <caret line="410" column="16" selection-start-line="410" selection-start-column="16" selection-end-line="410" selection-end-column="16" />
+            <state relative-caret-position="424">
+              <caret line="430" column="31" selection-start-line="430" selection-start-column="31" selection-end-line="430" selection-end-column="31" />
               <folding>
                 <element signature="e#4674#5656#0" expanded="true" />
                 <element signature="e#5655#5656#0" expanded="true" />
                 <element signature="method#checkNeededPermissions#0;class#MainActivity#0" expanded="false" />
                 <element signature="method#onPause#0;class#MainActivity#0" expanded="false" />
                 <element signature="method#onResume#0;class#MainActivity#0" expanded="false" />
-                <marker date="1492026050091" expanded="true" signature="4031:4062" ph="&quot;Open navigation drawer&quot;" />
-                <marker date="1492026050091" expanded="true" signature="4064:4096" ph="&quot;Close navigation drawer&quot;" />
+                <marker date="1492028096338" expanded="true" signature="4031:4062" ph="&quot;Open navigation drawer&quot;" />
+                <marker date="1492028096338" expanded="true" signature="4064:4096" ph="&quot;Close navigation drawer&quot;" />
               </folding>
             </state>
           </provider>
@@ -2304,7 +2288,7 @@
   </component>
   <component name="PropertiesComponent">
     <property name="android.sdk.path" value="$USER_HOME$/AppData/Local/Android/Sdk" />
-    <property name="device.picker.selection" value="ENU7N15C15002733" />
+    <property name="device.picker.selection" value="CVH7N15B05003674" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="settings.editor.selected.configurable" value="vcs.Git" />
     <property name="settings.editor.splitter.proportion" value="0.2" />
@@ -2738,7 +2722,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/card2.xml" />
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/eatright/eatright/MenuItemAdapter2.java" />
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/eatright/eatright/MyDBHandler.java">
       <provider selected="true" editor-type-id="text-editor">
@@ -3035,18 +3018,26 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$USER_HOME$/AppData/Local/Android/sdk/sources/android-25/java/lang/Integer.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="276">
+          <caret line="554" column="22" selection-start-line="554" selection-start-column="22" selection-end-line="554" selection-end-column="22" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/eatright/eatright/MainActivity.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="622">
-          <caret line="410" column="16" selection-start-line="410" selection-start-column="16" selection-end-line="410" selection-end-column="16" />
+        <state relative-caret-position="424">
+          <caret line="430" column="31" selection-start-line="430" selection-start-column="31" selection-end-line="430" selection-end-column="31" />
           <folding>
             <element signature="e#4674#5656#0" expanded="true" />
             <element signature="e#5655#5656#0" expanded="true" />
             <element signature="method#checkNeededPermissions#0;class#MainActivity#0" expanded="false" />
             <element signature="method#onPause#0;class#MainActivity#0" expanded="false" />
             <element signature="method#onResume#0;class#MainActivity#0" expanded="false" />
-            <marker date="1492026050091" expanded="true" signature="4031:4062" ph="&quot;Open navigation drawer&quot;" />
-            <marker date="1492026050091" expanded="true" signature="4064:4096" ph="&quot;Close navigation drawer&quot;" />
+            <marker date="1492028096338" expanded="true" signature="4031:4062" ph="&quot;Open navigation drawer&quot;" />
+            <marker date="1492028096338" expanded="true" signature="4064:4096" ph="&quot;Close navigation drawer&quot;" />
           </folding>
         </state>
       </provider>

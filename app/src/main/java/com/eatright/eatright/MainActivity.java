@@ -420,24 +420,21 @@ public class MainActivity extends AppCompatActivity
             for (String ingr : separated)
                 hset.add(ingr);
         }
+        String[] calContent = dbRecords.get(6).split(",");
+
         if (dbRecords.get(5).contains("Dr. Sumi Helal Diet")) {
             ALLOWED_SUGAR = 0;
         } else
-            ALLOWED_SUGAR = 999;
+            ALLOWED_SUGAR = Integer.parseInt(calContent[2]);
         if (dbRecords.get(5).contains("Ketogenic Diet")) {
             ALLOWED_CARBS = 10;
             ALLOWED_FATS = 300;
             ALLOWED_PROTEINS = 50;
         } else {
-            ALLOWED_CARBS = 999;
-            ALLOWED_FATS = 999;
-            ALLOWED_PROTEINS = 999;
+            ALLOWED_CARBS = Integer.parseInt(calContent[1]);
+            ALLOWED_FATS = Integer.parseInt(calContent[4]);
+            ALLOWED_PROTEINS = Integer.parseInt(calContent[0]);
         }
-        String[] calContent = dbRecords.get(6).split(",");
-        ALLOWED_PROTEINS = Integer.parseInt(calContent[0]);
-        ALLOWED_CARBS = Integer.parseInt(calContent[1]);
-        ALLOWED_SUGAR = Integer.parseInt(calContent[2]);
-        ALLOWED_FATS = Integer.parseInt(calContent[4]);
         ALLOWED_CAL = Integer.parseInt(calContent[3]);
     }
 

@@ -41,12 +41,14 @@ public class MenuItemAdapter extends RecyclerView.Adapter<MenuItemAdapter.DataOb
         TextView title;
         TextView cal;
         NetworkImageView img;
+        NetworkImageView img2;
 
         public DataObjectHolder(View itemView) {
             super(itemView);
             title = (TextView) itemView.findViewById(R.id.title);
             cal = (TextView) itemView.findViewById(R.id.date);
-            img   = (NetworkImageView) itemView.findViewById(R.id.img);
+            img = (NetworkImageView) itemView.findViewById(R.id.img);
+            img2 = (NetworkImageView) itemView.findViewById(R.id.img2);
             itemView.setOnClickListener(this);
         }
 
@@ -64,7 +66,6 @@ public class MenuItemAdapter extends RecyclerView.Adapter<MenuItemAdapter.DataOb
     @Override
     public DataObjectHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.card, parent, false);
-        view.setBackgroundColor(Color.GREEN);
         DataObjectHolder dataObjectHolder = new DataObjectHolder(view);
         return dataObjectHolder;
 
@@ -74,8 +75,12 @@ public class MenuItemAdapter extends RecyclerView.Adapter<MenuItemAdapter.DataOb
     @Override
     public void onBindViewHolder(DataObjectHolder holder, int position) {
         holder.title.setText(m_data.get(position).getDishName());
-        holder.cal.setText("Total Calories: "+String.valueOf(m_data.get(position).getTotCal()));
+        holder.cal.setText("Total Calories: " + String.valueOf(m_data.get(position).getTotCal()));
         holder.img.setImageUrl(m_data.get(position).getImageUrl(), imgLoad);
+        if (m_data.get(position).getRecommended() == 1)
+            holder.img2.setImageUrl("https://cdn.pixabay.com/photo/2016/03/31/14/37/check-mark-1292787_960_720.png", imgLoad);
+        else if (m_data.get(position).getRecommended() == 0)
+            holder.img2.setImageUrl("https://cdn.pixabay.com/photo/2012/04/12/13/15/red-29985_960_720.png", imgLoad);
 
     }
 

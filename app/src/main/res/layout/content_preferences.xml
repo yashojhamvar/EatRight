@@ -9,8 +9,8 @@
     tools:showIn="@layout/activity_preferences">
 
     <ScrollView
-        android:layout_width="386dp"
-        android:layout_height="517dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_marginLeft="-1dp"
         android:layout_marginTop="-157dp"
         app:layout_constraintLeft_toLeftOf="parent"

@@ -1,6 +1,7 @@
 package com.eatright.eatright;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -42,7 +43,9 @@ public class ResultDisplayActivity extends AppCompatActivity {
         TextView descView = (TextView) findViewById(R.id.Description);
         TextView calView = (TextView) findViewById(R.id.Calories);
         TextView reasonView = (TextView) findViewById(R.id.Reason);
-        TextView typeView = (TextView) findViewById(R.id.Type);
+        TextView vegView = (TextView) findViewById(R.id.Veg);
+        TextView lactoseView = (TextView) findViewById(R.id.Lactose);
+        TextView glutenView = (TextView) findViewById(R.id.Gluten);
 
         image1 = (com.android.volley.toolbox.NetworkImageView) findViewById(R.id.image1);
         image1.setImageUrl(image, imgLoad);
@@ -52,7 +55,7 @@ public class ResultDisplayActivity extends AppCompatActivity {
         descView.setText(desc);
 
         StringBuilder sb = new StringBuilder();
-        //ingredients
+        sb.append("Ingredients: ");
         for (int i = 0; i < ingred.size(); i++) {
             sb.append(ingred.get(i));
             if (i < ingred.size() - 1)
@@ -63,18 +66,17 @@ public class ResultDisplayActivity extends AppCompatActivity {
 
         //Cal Content
         sb = new StringBuilder();
-        sb.append("Calorie Content\n");
         sb.append("Carbohydrates: ");
         sb.append(cal[0]);
-        sb.append("\n");
+        sb.append("  |  ");
 
         sb.append("Fat: ");
         sb.append(cal[1]);
-        sb.append("\n");
+        sb.append("  |  ");
 
         sb.append("Protein: ");
         sb.append(cal[2]);
-        sb.append("\n");
+        sb.append("  |  ");
 
         sb.append("Sugar: ");
         sb.append(cal[3]);
@@ -88,7 +90,6 @@ public class ResultDisplayActivity extends AppCompatActivity {
 
         //Type
         sb = new StringBuilder();
-        sb.append("Dish Type : ");
         if (type == 0)
             sb.append("Vegan");
         else if (type == 1)
@@ -96,17 +97,22 @@ public class ResultDisplayActivity extends AppCompatActivity {
         else
             sb.append("Non-Vegetarian");
 
+        vegView.setText(sb.toString());
+
+        sb = new StringBuilder();
         if (lactose == 0)
-            sb.append("\nLactose Free");
+            sb.append("Lactose Free");
         else
-            sb.append("\nContains Lactose");
+            sb.append("Contains Lactose");
+        lactoseView.setText(sb.toString());
 
+        sb = new StringBuilder();
         if (gluten == 0)
-            sb.append("\nGluten Free");
+            sb.append("Gluten Free");
         else
-            sb.append("\nContains Gluten");
+            sb.append("Contains Gluten");
+        glutenView.setText(sb.toString());
 
-        typeView.setText(sb.toString());
 
         //Reason
         if (recommended == 0) {    //if dish is not recommended due to various reasons
@@ -116,22 +122,12 @@ public class ResultDisplayActivity extends AppCompatActivity {
                 sb.append(reason.get(i));
                 sb.append("\n");
             }
+            reasonView.setTextColor(Color.RED);
             reasonView.setText(sb.toString());
         } else {
             sb = new StringBuilder("This dish is recommended for you" + "\n");
+            reasonView.setTextColor(Color.rgb(34,162,28));
             reasonView.setText(sb.toString());
         }
-
-
-        Button backButton = (Button) this.findViewById(R.id.button2);
-        backButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
-
     }
-
-
 }

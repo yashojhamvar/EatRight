@@ -1,98 +1,175 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/activity_result_display"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     android:paddingBottom="@dimen/activity_vertical_margin"
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.eatright.eatright.ResultDisplayActivity">
+
     <com.android.volley.toolbox.NetworkImageView
         android:id="@+id/image1"
-        android:layout_marginRight="2dp"
-        android:layout_height="100dp"
-        android:layout_width="100dp"
-        android:cropToPadding="true"
+        android:layout_width="fill_parent"
+        android:layout_height="150dp"
+        android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
-        android:layout_alignParentStart="true" />
+        android:layout_marginRight="2dp" />
 
     <TextView
         android:id="@+id/Title"
-        android:layout_width="wrap_content"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:text="dish name"
-        android:paddingLeft="16dp"
-        android:textAppearance="@android:style/TextAppearance.Material.Title"
+        android:gravity="center"
+        android:paddingBottom="5dp"
+        android:paddingTop="10dp"
+        android:text="Palak Paneer"
+        android:textAppearance="@android:style/TextAppearance.Material.Title" />
+    <!--android:layout_below="@+id/Title"
         android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"
-        android:layout_toEndOf="@+id/image1" />
-
-    <TextView
-        android:id="@+id/Description"
-        android:text="description of dish"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:paddingLeft="16dp"
-        android:layout_below="@+id/Title"
-        android:layout_alignParentEnd="true"
-        android:layout_toEndOf="@+id/image1" />
-
-    <TextView
-        android:id="@+id/Type"
-        android:text="type of dish"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:paddingLeft="16dp"
-        android:layout_below="@+id/Description"
-        android:layout_alignParentEnd="true"
-        android:layout_toEndOf="@+id/image1" />
-
-    <TextView
-        android:id="@+id/Ingredients"
-        android:text="List of all ingredients"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:paddingLeft="16dp"
-
-        android:layout_alignParentEnd="true"
-        android:layout_toEndOf="@+id/image1"
-        android:layout_below="@+id/Type" />
+        android:layout_toEndOf="@+id/image1" -->
 
     <TextView
         android:id="@+id/Calories"
-        android:text="List of all calories"
-        android:layout_width="wrap_content"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
+        android:gravity="center"
+        android:paddingBottom="5dp"
+        android:text="Carbohydrates:50 Fat:30 Protein:50 Sugar:100\nTotal Calories: 200" />
+
+
+    <View
+        android:id="@+id/Gap2"
+        android:layout_width="fill_parent"
+        android:layout_height="1dp" />
+
+    <View
+        android:id="@+id/Line2"
+        android:layout_width="fill_parent"
+        android:layout_height="0.5dp"
+        android:background="#c0c0c0" />
+
+    <TextView
+        android:id="@+id/Ingredients"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
         android:paddingLeft="16dp"
-        android:layout_alignParentEnd="true"
-        android:layout_toEndOf="@+id/image1"
-        android:layout_below="@+id/Ingredients" />
+        android:paddingTop="2dp"
+        android:text="List of all ingredients"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textColor="@color/tw__composer_black" />
 
+    <View
+        android:id="@+id/Gap3"
+        android:layout_width="fill_parent"
+        android:layout_height="5dp" />
 
-    <Button
-        android:text="Back"
-        android:layout_width="wrap_content"
+    <View
+        android:id="@+id/Line3"
+        android:layout_width="fill_parent"
+        android:layout_height="0.5dp"
+        android:background="#c0c0c0" />
+
+    <View
+        android:id="@+id/Gap4"
+        android:layout_width="fill_parent"
+        android:layout_height="5dp" />
+
+    <LinearLayout
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/image1"
-        android:layout_alignParentStart="true"
-        android:layout_marginTop="336dp"
-        android:id="@+id/button2" />
+        android:orientation="horizontal">
 
+        <TextView
+            android:id="@+id/Veg"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingLeft="20dp"
+            android:text="Vegetarian" />
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1" />
+
+        <View
+            android:layout_width="0.5dp"
+            android:layout_height="match_parent"
+            android:background="#c0c0c0" />
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1" />
+
+        <TextView
+            android:id="@+id/Lactose"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Lactose free" />
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1" />
+
+        <View
+            android:layout_width="0.5dp"
+            android:layout_height="match_parent"
+            android:background="#c0c0c0" />
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1" />
+
+        <TextView
+            android:id="@+id/Gluten"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingRight="20dp"
+            android:text="Gluten free" />
+
+    </LinearLayout>
+
+    <View
+        android:id="@+id/Gap5"
+        android:layout_width="fill_parent"
+        android:layout_height="5dp" />
+
+    <View
+        android:id="@+id/Line1"
+        android:layout_width="fill_parent"
+        android:layout_height="0.5dp"
+        android:background="#c0c0c0" />
+
+    <View
+        android:id="@+id/Gap1"
+        android:layout_width="fill_parent"
+        android:layout_height="5dp" />
+
+    <TextView
+        android:id="@+id/Description"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:paddingTop="2dp"
+        android:text="Description goes here" />
 
     <TextView
         android:id="@+id/Reason"
-        android:text="Reason List"
-        android:layout_width="wrap_content"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:paddingLeft="16dp"
-        android:layout_alignParentEnd="true"
-        android:layout_toEndOf="@+id/image1"
-        android:layout_below="@+id/Calories"
-         />
+        android:gravity="center"
+        android:text="This dish is recommended for you"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textColor="@color/tw__composer_black" />
 
-
-</RelativeLayout>
+</LinearLayout>

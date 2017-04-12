@@ -42,9 +42,9 @@ public class EatRight extends Application {
             @Override
             public void onServiceReady() {
                 beaconManager.setBackgroundScanPeriod(6000, 500);
-                beaconManager.startMonitoring(new Region("IndianCuisine", null, 0001, null));
-                beaconManager.startMonitoring(new Region("BentoCafe", null, 0002, null));
-                beaconManager.startMonitoring(new Region("Chuys", null, 0003, null));
+                beaconManager.startMonitoring(new Region("IndianCuisine", null, 0001, 0001));
+                beaconManager.startMonitoring(new Region("OliveGarden", null, 0002, 0002));
+                beaconManager.startMonitoring(new Region("Chuys", null, 0003, 0003));
             }
         });
     }

@@ -165,15 +165,15 @@ public class MainActivity extends AppCompatActivity
                 //To gagan
                 String dishName = ((MenuItemAdapter) madapter).getItem(position).getDishName();
                 String dishDesc = ((MenuItemAdapter) madapter).getItem(position).getDishDesc();
-                String imageURL=((MenuItemAdapter) madapter).getItem(position).getImageUrl();
-                int dishType=((MenuItemAdapter) madapter).getItem(position).getDishType();
-                int lactose=((MenuItemAdapter) madapter).getItem(position).getLactose();
-                int gluten=((MenuItemAdapter) madapter).getItem(position).getGluten();
-                int[] calContent=((MenuItemAdapter) madapter).getItem(position).getCalContent();
-                int totCal=((MenuItemAdapter) madapter).getItem(position).getTotCal();
-                ArrayList<String> ingredients=((MenuItemAdapter) madapter).getItem(position).getIngredients();
-                int recommended=((MenuItemAdapter) madapter).getItem(position).getRecommended();
-                ArrayList<String> reasons=((MenuItemAdapter) madapter).getItem(position).getReasons();
+                String imageURL = ((MenuItemAdapter) madapter).getItem(position).getImageUrl();
+                int dishType = ((MenuItemAdapter) madapter).getItem(position).getDishType();
+                int lactose = ((MenuItemAdapter) madapter).getItem(position).getLactose();
+                int gluten = ((MenuItemAdapter) madapter).getItem(position).getGluten();
+                int[] calContent = ((MenuItemAdapter) madapter).getItem(position).getCalContent();
+                int totCal = ((MenuItemAdapter) madapter).getItem(position).getTotCal();
+                ArrayList<String> ingredients = ((MenuItemAdapter) madapter).getItem(position).getIngredients();
+                int recommended = ((MenuItemAdapter) madapter).getItem(position).getRecommended();
+                ArrayList<String> reasons = ((MenuItemAdapter) madapter).getItem(position).getReasons();
 
                 Intent in = new Intent(MainActivity.this, ResultDisplayActivity.class);
                 in.putExtra("dishName", dishName);
@@ -205,15 +205,15 @@ public class MainActivity extends AppCompatActivity
                 //To gagan
                 String dishName = ((MenuItemAdapter2) madapter2).getItem(position).getDishName();
                 String dishDesc = ((MenuItemAdapter2) madapter2).getItem(position).getDishDesc();
-                String imageURL=((MenuItemAdapter2) madapter2).getItem(position).getImageUrl();
-                int dishType=((MenuItemAdapter2) madapter2).getItem(position).getDishType();
-                int lactose=((MenuItemAdapter2) madapter2).getItem(position).getLactose();
-                int gluten=((MenuItemAdapter2) madapter2).getItem(position).getGluten();
-                int[] calContent=((MenuItemAdapter2) madapter2).getItem(position).getCalContent();
-                int totCal=((MenuItemAdapter2) madapter2).getItem(position).getTotCal();
-                ArrayList<String> ingredients=((MenuItemAdapter2) madapter2).getItem(position).getIngredients();
-                int recommended=((MenuItemAdapter2) madapter2).getItem(position).getRecommended();
-                ArrayList<String> reasons=((MenuItemAdapter2) madapter2).getItem(position).getReasons();
+                String imageURL = ((MenuItemAdapter2) madapter2).getItem(position).getImageUrl();
+                int dishType = ((MenuItemAdapter2) madapter2).getItem(position).getDishType();
+                int lactose = ((MenuItemAdapter2) madapter2).getItem(position).getLactose();
+                int gluten = ((MenuItemAdapter2) madapter2).getItem(position).getGluten();
+                int[] calContent = ((MenuItemAdapter2) madapter2).getItem(position).getCalContent();
+                int totCal = ((MenuItemAdapter2) madapter2).getItem(position).getTotCal();
+                ArrayList<String> ingredients = ((MenuItemAdapter2) madapter2).getItem(position).getIngredients();
+                int recommended = ((MenuItemAdapter2) madapter2).getItem(position).getRecommended();
+                ArrayList<String> reasons = ((MenuItemAdapter2) madapter2).getItem(position).getReasons();
 
                 Intent in = new Intent(MainActivity.this, ResultDisplayActivity.class);
                 in.putExtra("dishName", dishName);
@@ -473,7 +473,8 @@ public class MainActivity extends AppCompatActivity
     public void retrieveDataFromDB() {
         dbHandler = new MyDBHandler(this, null, null, 2);
         dbRecords = dbHandler.retrievePreferences();
-        if (dbRecords != null) {
+
+        if (dbRecords != null && !dbRecords.isEmpty()) {
             Toast.makeText(this, "Retrieved data", Toast.LENGTH_LONG).show();
             makeHashSet();
         } else {
@@ -484,7 +485,7 @@ public class MainActivity extends AppCompatActivity
     }
 
     public void makeHashSet() {
-        for (int i = 1; i < 4; i++) {
+        for (int i = 1; i < 5; i++) {
             String[] separated = dbRecords.get(i).split(",");
             for (String ingr : separated)
                 hset.add(ingr);
@@ -518,7 +519,11 @@ public class MainActivity extends AppCompatActivity
     private void retrieveConditions() {
         dbHandler = new MyDBHandler(this, null, null, 1);
         dbRecords = dbHandler.retrievePreferences();
-        final String[] conditions = dbRecords.get(4).split(",");
+        final String[] conditions;
+        if (dbRecords != null && !dbRecords.isEmpty())
+            conditions = dbRecords.get(4).split(",");
+        else
+            conditions = null;
         final Context self = this;
         final StringRequest res = new StringRequest(Request.Method.GET, CONDITION_URL, new Response.Listener<String>() {
             @Override
@@ -528,7 +533,7 @@ public class MainActivity extends AppCompatActivity
                     JSONArray resultJsonArray = (new JSONObject(response)).getJSONArray("conditions");
                     for (int i = 0; i < conditions.length; i++) {
                         for (int j = 0; j < resultJsonArray.length(); j++) {
-                            if (resultJsonArray.getJSONObject(j).getString("condition_name").equals(conditions[i])) {
+                            if (resultJsonArray.getJSONObject(j).getString("condition_name").equalsIgnoreCase(conditions[i])) {
                                 JSONArray ingredientsToAvoid = resultJsonArray.getJSONObject(j).getJSONArray("ingredients_avoid");
                                 for (int k = 0; k < ingredientsToAvoid.length(); k++) {
                                     hset.add(ingredientsToAvoid.getJSONObject(k).getString("ingredient_name"));
@@ -551,14 +556,6 @@ public class MainActivity extends AppCompatActivity
         );
 // Start the request
         requestQ.add(res);
-    }
-
-
-    public void showHSet() {
-        Iterator<String> it = hset.iterator();
-        while (it.hasNext()) {
-            Toast.makeText(this, it.next().toString(), Toast.LENGTH_SHORT).show();
-        }
     }
 
 }

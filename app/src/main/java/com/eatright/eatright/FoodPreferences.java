@@ -47,27 +47,41 @@ public class FoodPreferences extends AppCompatActivity {
         //(Context, String Name,CursorFactory factory,int version)
         dbHandler = new MyDBHandler(this, null, null, 2);
         retrieveData();
-        setCheckboxState();
 
         EditText constraint_Protein = (EditText) findViewById(R.id.constraint_Protein);
         EditText constraint_carbs = (EditText) findViewById(R.id.constraint_carbs);
         EditText constraint_sugar = (EditText) findViewById(R.id.constraint_sugar);
-        EditText constraint_calories = (EditText) findViewById(R.id.constraint_calories);
         EditText constraint_fat = (EditText) findViewById(R.id.constraint_fat);
+        EditText constraint_calories = (EditText) findViewById(R.id.constraint_calories);
 
-        if (dbRecords.size() > 6) {
+        if ((!dbRecords.isEmpty()) && (dbRecords != null) && dbRecords.size() > 6) {
             String calories = dbRecords.get(6);
             String[] str_list = calories.split(",");
-            if (str_list[0] != null)
+            if (str_list[0] != null || !str_list[0].isEmpty()) {
                 constraint_Protein.setText(str_list[0], TextView.BufferType.EDITABLE);
-            if (str_list[1] != null)
+                if (str_list[0].equalsIgnoreCase("999"))
+                    constraint_Protein.setText("", TextView.BufferType.EDITABLE);
+            }
+            if (str_list[1] != null || !str_list[1].isEmpty()) {
                 constraint_carbs.setText(str_list[1], TextView.BufferType.EDITABLE);
-            if (str_list[2] != null)
+                if (str_list[1].equalsIgnoreCase("999"))
+                    constraint_carbs.setText("", TextView.BufferType.EDITABLE);
+            }
+            if (str_list[2] != null || !str_list[2].isEmpty()) {
                 constraint_sugar.setText(str_list[2], TextView.BufferType.EDITABLE);
-            if (str_list[3] != null)
+                if (str_list[2].equalsIgnoreCase("999"))
+                    constraint_sugar.setText("", TextView.BufferType.EDITABLE);
+            }
+            if (str_list[3] != null || !str_list[3].isEmpty()) {
                 constraint_calories.setText(str_list[3], TextView.BufferType.EDITABLE);
-            if (str_list[4] != null)
+                if (str_list[3].equalsIgnoreCase("999"))
+                    constraint_calories.setText("", TextView.BufferType.EDITABLE);
+            }
+            if (str_list[4] != null || !str_list[4].isEmpty()) {
                 constraint_fat.setText(str_list[4], TextView.BufferType.EDITABLE);
+                if (str_list[4].equalsIgnoreCase("999"))
+                    constraint_fat.setText("", TextView.BufferType.EDITABLE);
+            }
         }
 
 
@@ -90,10 +104,15 @@ public class FoodPreferences extends AppCompatActivity {
     * ******************************************************************* */
     public void retrieveData() {
         dbRecords = dbHandler.retrievePreferences();
-        if (dbRecords != null && (!dbRecords.contains("["))) {
+        if (dbRecords != null && (!dbRecords.isEmpty())) {
             Toast.makeText(this, "Retrieved data= " + dbRecords, Toast.LENGTH_SHORT).show();
+            setCheckboxState();
+        } else if (dbRecords == null) {
+            Toast.makeText(this, "Retrieved data = NULL" + dbRecords, Toast.LENGTH_SHORT).show();
+        } else if (dbRecords.isEmpty()) {
+            Toast.makeText(this, "Retrieved data = EMPTY", Toast.LENGTH_SHORT).show();
         } else {
-            Toast.makeText(this, "Retrieved data = NULL", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Retrieved data = NEITHER", Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -102,7 +121,7 @@ public class FoodPreferences extends AppCompatActivity {
     * Return: none
     * Description: Loads preexisting user preferences
     * Author: Srishti Hunjan
-    * Date: 4/9/2017
+   * Date: 4/9/2017
     * ******************************************************************* */
     public void setCheckboxState() {
         CheckBox mealType_nonveg = (CheckBox) findViewById(R.id.mealType_nonveg);
@@ -127,216 +146,73 @@ public class FoodPreferences extends AppCompatActivity {
         CheckBox diet_helal = (CheckBox) findViewById(R.id.diet_helal);
 
         ArrayList<String> fetchedRecords = dbRecords;
-        for (String record : fetchedRecords) {
-            String[] separated = record.split(",");
-            for (String item : separated) {
-                if (item.equalsIgnoreCase("Non-Vegetarian Meals")) {
-                    mealType_nonveg.setChecked(true);
-                }
-                if (item.equalsIgnoreCase("Vegetarian Meals")) {
-                    mealType_veg.setChecked(true);
-                }
-                if (item.equalsIgnoreCase("Vegan Meals")) {
-                    mealType_vegan.setChecked(true);
-                }
-                if (item.equalsIgnoreCase("Chicken")) {
-                    avoidMeat_chicken.setChecked(true);
-                }
-                if (item.equalsIgnoreCase("Pork")) {
-                    avoidMeat_pork.setChecked(true);
-                }
-                if (item.equalsIgnoreCase("Fish")) {
-                    avoidMeat_fish.setChecked(true);
-                }
-                if (item.equalsIgnoreCase("Beef")) {
-                    avoidMeat_beef.setChecked(true);
-                }
-                if (item.equalsIgnoreCase("Onion")) {
-                    avoidVeg_onions.setChecked(true);
-                }
-                if (item.equalsIgnoreCase("Lettuce")) {
-                    avoidVeg_lettuce.setChecked(true);
-                }
-                if (item.equalsIgnoreCase("Corn")) {
-                    avoidVeg_corn.setChecked(true);
-                }
-                if (item.equalsIgnoreCase("Tomatoes")) {
-                    avoidVeg_tomato.setChecked(true);
-                }
-                if (item.equalsIgnoreCase("Dairy")) {
-                    avoidVeg_diary.setChecked(true);
-                }
-                if (item.equalsIgnoreCase("Wheat")) {
-                    avoidVeg_wheat.setChecked(true);
-                }
-                if (item.equalsIgnoreCase("Diabetes")) {
-                    userConditions_diabetes.setChecked(true);
-                }
-                if (item.equalsIgnoreCase("Lactose Intolerance")) {
-                    userConditions_lactoseIntolerance.setChecked(true);
-                }
-                if (item.equalsIgnoreCase("Gluten Intolerance")) {
-                    userConditions_glutenIntolerance.setChecked(true);
-                }
-                if (item.equalsIgnoreCase("Nut Allergy")) {
-                    userConditions_nutAllergy.setChecked(true);
-                }
-                if (item.equalsIgnoreCase("High Blood Pressure")) {
-                    userConditions_highBloodPressure.setChecked(true);
-                }
-                if (item.equalsIgnoreCase("Ketogenic Diet")) {
-                    diet_keto.setChecked(true);
-                }
-                if (item.equalsIgnoreCase("Dr. Sumi Helal Diet")) {
-                    diet_helal.setChecked(true);
+        if (!dbRecords.isEmpty() && dbRecords != null) {
+            for (String record : fetchedRecords) {
+                String[] separated = record.split(",");
+                for (String item : separated) {
+                    if (item.equalsIgnoreCase("Non-Vegetarian Meals")) {
+                        mealType_nonveg.setChecked(true);
+                    }
+                    if (item.equalsIgnoreCase("Vegetarian Meals")) {
+                        mealType_veg.setChecked(true);
+                    }
+                    if (item.equalsIgnoreCase("Vegan Meals")) {
+                        mealType_vegan.setChecked(true);
+                    }
+                    if (item.equalsIgnoreCase("Chicken")) {
+                        avoidMeat_chicken.setChecked(true);
+                    }
+                    if (item.equalsIgnoreCase("Pork")) {
+                        avoidMeat_pork.setChecked(true);
+                    }
+                    if (item.equalsIgnoreCase("Fish")) {
+                        avoidMeat_fish.setChecked(true);
+                    }
+                    if (item.equalsIgnoreCase("Beef")) {
+                        avoidMeat_beef.setChecked(true);
+                    }
+                    if (item.equalsIgnoreCase("Onion")) {
+                        avoidVeg_onions.setChecked(true);
+                    }
+                    if (item.equalsIgnoreCase("Lettuce")) {
+                        avoidVeg_lettuce.setChecked(true);
+                    }
+                    if (item.equalsIgnoreCase("Corn")) {
+                        avoidVeg_corn.setChecked(true);
+                    }
+                    if (item.equalsIgnoreCase("Tomatoes")) {
+                        avoidVeg_tomato.setChecked(true);
+                    }
+                    if (item.equalsIgnoreCase("Dairy")) {
+                        avoidVeg_diary.setChecked(true);
+                    }
+                    if (item.equalsIgnoreCase("Wheat")) {
+                        avoidVeg_wheat.setChecked(true);
+                    }
+                    if (item.equalsIgnoreCase("Diabetes")) {
+                        userConditions_diabetes.setChecked(true);
+                    }
+                    if (item.equalsIgnoreCase("Lactose Intolerance")) {
+                        userConditions_lactoseIntolerance.setChecked(true);
+                    }
+                    if (item.equalsIgnoreCase("Gluten Intolerance")) {
+                        userConditions_glutenIntolerance.setChecked(true);
+                    }
+                    if (item.equalsIgnoreCase("Nut Allergy")) {
+                        userConditions_nutAllergy.setChecked(true);
+                    }
+                    if (item.equalsIgnoreCase("High Blood Pressure")) {
+                        userConditions_highBloodPressure.setChecked(true);
+                    }
+                    if (item.equalsIgnoreCase("Ketogenic Diet")) {
+                        diet_keto.setChecked(true);
+                    }
+                    if (item.equalsIgnoreCase("Dr. Sumi Helal Diet")) {
+                        diet_helal.setChecked(true);
+                    }
                 }
             }
         }
-    }
-
-    /*  *******************************************************************
-     * Parameters: view state
-     * Return: none
-     * Description: Populates lists with selected Checkboxes
-     * Author: Srishti Hunjan
-     * Date: 4/9/2017
-     * ********************************************************************/
-    public void selectItem(View view) {
-        /*boolean checked = ((CheckBox) view).isChecked();
-        switch (view.getId()) {
-            // Meal Type Preference
-            case R.id.mealType_nonveg:
-                if (checked) {
-                    mealType_list.add("Non-Vegetarian Meals");
-                }
-                else {
-                    mealType_list.remove("Non-Vegetarian Meals");
-                }
-                break;
-            case R.id.mealType_veg:
-                if (checked)
-                    mealType_list.add("Vegetarian Meals");
-                else
-                    mealType_list.remove("Vegetarian Meals");
-                break;
-            case R.id.mealType_vegan:
-                if (checked)
-                    mealType_list.add("Vegan Meals");
-                else
-                    mealType_list.remove("Vegan Meals");
-                break;
-
-            // Avoid which Veggies
-
-            case R.id.avoidVeg_corn:
-                if (checked)
-                    avoidVeg_list.add("Corn");
-                else
-                    avoidVeg_list.remove("Corn");
-                break;
-            case R.id.avoidVeg_onions:
-                if (checked)
-                    avoidVeg_list.add("Onion");
-                else
-                    avoidVeg_list.remove("Onion");
-                break;
-            case R.id.avoidVeg_lettuce:
-                if (checked)
-                    avoidVeg_list.add("Lettuce");
-                else
-                    avoidVeg_list.remove("Lettuce");
-                break;
-            case R.id.avoidVeg_tomato:
-                if (checked)
-                    avoidVeg_list.add("Tomatoes");
-                else
-                    avoidVeg_list.remove("Tomatoes");
-                break;
-            case R.id.avoidVeg_diary:
-                if (checked)
-                    avoidVeg_list.add("Dairy");
-                else
-                    avoidVeg_list.remove("Dairy");
-                break;
-            case R.id.avoidVeg_wheat:
-                if (checked)
-                    avoidVeg_list.add("Wheat");
-                else
-                    avoidVeg_list.remove("Wheat");
-                break;
-
-            // Avoid which Meats
-
-            case R.id.avoidMeat_chicken:
-                if (checked)
-                    avoidMeat_list.add("Chicken");
-                else
-                    avoidMeat_list.remove("Chicken");
-                break;
-            case R.id.avoidMeat_fish:
-                if (checked)
-                    avoidMeat_list.add("Fish");
-                else
-                    avoidMeat_list.remove("Fish");
-                break;
-            case R.id.avoidMeat_pork:
-                if (checked)
-                    avoidMeat_list.add("Pork");
-                else
-                    avoidMeat_list.remove("Pork");
-                break;
-            case R.id.avoidMeat_beef:
-                if (checked)
-                    avoidMeat_list.add("Beef");
-                else
-                    avoidMeat_list.remove("Beef");
-                break;
-
-            // User Conditions to consider
-
-            case R.id.userConditions_diabetes:
-                if (checked)
-                    conditions_list.add("Diabetes");
-                else
-                    conditions_list.remove("Diabetes");
-                break;
-            case R.id.userConditions_glutenIntolerance:
-                if (checked)
-                    conditions_list.add("Gluten Intolerance");
-                else
-                    conditions_list.remove("Gluten Intolerance");
-                break;
-            case R.id.userConditions_lactoseIntolerance:
-                if (checked)
-                    conditions_list.add("Lactose Intolerance");
-                else
-                    conditions_list.remove("Lactose Intolerance");
-                break;
-            case R.id.userConditions_nutAllergy:
-                if (checked)
-                    conditions_list.add("Nut Allergy");
-                else
-                    conditions_list.remove("Nut Allergy");
-                break;
-            case R.id.userConditions_highBloodPressure:
-                if (checked)
-                    conditions_list.add("High Blood Pressure");
-                else
-                    conditions_list.remove("High Blood Pressure");
-                break;
-            case R.id.diet_keto:
-                if (checked)
-                    diets_list.add("Ketogenic Diet");
-                else
-                    conditions_list.remove("Ketogenic Diet");
-                break;
-            case R.id.diet_helal:
-                if (checked)
-                    conditions_list.add("Dr. Sumi Helal Diet");
-                else
-                    conditions_list.remove("Dr. Sumi Helal Diet");
-                break;
-        }*/
     }
 
     /*  *******************************************************************
@@ -356,11 +232,30 @@ public class FoodPreferences extends AppCompatActivity {
         EditText constraint_calories = (EditText) findViewById(R.id.constraint_calories);
         EditText constraint_fat = (EditText) findViewById(R.id.constraint_fat);
 
-        calorie_list.add(constraint_Protein.getText().toString());
-        calorie_list.add(constraint_carbs.getText().toString());
-        calorie_list.add(constraint_sugar.getText().toString());
-        calorie_list.add(constraint_calories.getText().toString());
-        calorie_list.add(constraint_fat.getText().toString());
+        if ((constraint_Protein.getText().toString() == null) || (constraint_Protein.getText().toString().isEmpty()))
+            calorie_list.add("999");
+        else
+            calorie_list.add(constraint_Protein.getText().toString());
+
+        if ((constraint_carbs.getText().toString() == null) || (constraint_carbs.getText().toString().isEmpty()))
+            calorie_list.add("999");
+        else
+            calorie_list.add(constraint_carbs.getText().toString());
+
+        if ((constraint_sugar.getText().toString() == null) || (constraint_sugar.getText().toString().isEmpty()))
+            calorie_list.add("999");
+        else
+            calorie_list.add(constraint_sugar.getText().toString());
+
+        if ((constraint_calories.getText().toString() == null) || (constraint_calories.getText().toString().isEmpty()))
+            calorie_list.add("999");
+        else
+            calorie_list.add(constraint_calories.getText().toString());
+
+        if ((constraint_fat.getText().toString() == null) || (constraint_fat.getText().toString().isEmpty()))
+            calorie_list.add("999");
+        else
+            calorie_list.add(constraint_fat.getText().toString());
 
         //(String username, String meal_type, String avoidVeg, String avoidMeat, String conditions, String diets)
         //UserPreferences userPreferences = new UserPreferences(USERNAME, mealType_list.toString(), avoidVeg_list.toString(), avoidMeat_list.toString(), conditions_list.toString(), diets_list.toString(), calorie_list.toString());
@@ -481,3 +376,4 @@ public class FoodPreferences extends AppCompatActivity {
         return sb.toString();
     }
 }
+

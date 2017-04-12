@@ -270,7 +270,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="left"
                 android:layout_marginTop="@dimen/auth_method_button_marginBottom"
-                android:text="CALORIE CONSTRAINTS"
+                android:text="CALORIE CONSTRAINTS (grams per dish)"
                 android:textAppearance="?android:textAppearanceLarge"
                 android:textSize="20dp" />
 
@@ -293,7 +293,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
-                    android:text="999"/>
+                    android:maxLength="3" />
             </LinearLayout>
 
             <LinearLayout
@@ -307,14 +307,14 @@
                     android:paddingLeft="10dp"
                     android:text="Total Carbohydrates"
                     android:textColor="@color/authui_inputTextColorDark"
-                    android:textSize="14sp"/>
+                    android:textSize="14sp" />
 
                 <EditText
                     android:id="@+id/constraint_carbs"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
-                    android:text="999"/>
+                    android:maxLength="3" />
             </LinearLayout>
 
             <LinearLayout
@@ -328,35 +328,14 @@
                     android:paddingLeft="10dp"
                     android:text="Total Sugar"
                     android:textColor="@color/authui_inputTextColorDark"
-                    android:textSize="14sp"/>
+                    android:textSize="14sp" />
 
                 <EditText
                     android:id="@+id/constraint_sugar"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
-                    android:text="999"/>
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:paddingLeft="10dp"
-                    android:text="Total Calories"
-                    android:textColor="@color/authui_inputTextColorDark"
-                    android:textSize="14sp"/>
-
-                <EditText
-                    android:id="@+id/constraint_calories"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
-                    android:text="999"/>
+                    android:maxLength="3" />
             </LinearLayout>
 
             <LinearLayout
@@ -370,14 +349,35 @@
                     android:paddingLeft="10dp"
                     android:text="Total Fat"
                     android:textColor="@color/authui_inputTextColorDark"
-                    android:textSize="14sp"/>
+                    android:textSize="14sp" />
 
                 <EditText
                     android:id="@+id/constraint_fat"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
-                    android:text="999"/>
+                    android:maxLength="3" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="10dp"
+                    android:text="Total Calories"
+                    android:textColor="@color/authui_inputTextColorDark"
+                    android:textSize="14sp" />
+
+                <EditText
+                    android:id="@+id/constraint_calories"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:maxLength="3" />
             </LinearLayout>
 
             <View
